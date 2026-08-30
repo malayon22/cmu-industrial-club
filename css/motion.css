@@ -1,0 +1,232 @@
+/* ============================================================
+   Motion layer: per-letter hover, industrial reveals,
+   bridge scene, gear spin, reduced-motion kill-switch.
+   Letter spans (.l) and plate doors are injected by JS, so
+   nothing here can hide content when JS is unavailable.
+   ============================================================ */
+
+/* ---------- Per-letter hover system (.hx) ----------
+   Each letter renders via two stacked pseudo-elements ("base" and
+   "hover" looks) and hovering crossfades opacity — the text-stroke
+   itself never animates, sidestepping its non-animatability. */
+.hx .hx-w { display: inline-block; white-space: nowrap; }
+.hx .l {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  transition: transform var(--hx-dur, 220ms) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hx .l::before,
+.hx .l::after {
+  content: attr(data-ch);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: opacity var(--hx-dur, 220ms) cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hx .l::before {
+  opacity: 1;
+  color: var(--hx-base-color, currentColor);
+  -webkit-text-stroke: var(--hx-base-stroke, 0 transparent);
+}
+.hx .l::after {
+  opacity: 0;
+  color: var(--hx-hover-color, currentColor);
+  -webkit-text-stroke: var(--hx-hover-stroke, 0 transparent);
+}
+.hx .l:hover::before { opacity: 0; }
+.hx .l:hover::after { opacity: 1; }
+.hx .l:hover { transform: translateY(var(--hx-lift, 0px)); }
+
+/* Keyboard focus lights the whole word (nav wordmark lives in a link) */
+a:focus-visible .hx .l::before { opacity: 0; }
+a:focus-visible .hx .l::after { opacity: 1; }
+
+/* Skins */
+[data-hover="hero-solid"] {
+  --hx-base-color: #fff;
+  --hx-hover-color: transparent;
+  --hx-hover-stroke: 2px #fff;
+  --hx-hover-fallback: var(--red);
+}
+[data-hover="hero-outline"] {
+  --hx-base-color: transparent;
+  --hx-base-stroke: 2px #fff;
+  --hx-hover-color: #fff;
+  --hx-base-fallback: #fff;
+}
+[data-hover="interlude-solid"] {
+  --hx-base-color: #fff;
+  --hx-hover-color: transparent;
+  --hx-hover-stroke: 2px var(--red);
+  --hx-hover-fallback: var(--red);
+}
+[data-hover="interlude-outline"] {
+  --hx-base-color: transparent;
+  --hx-base-stroke: 2px var(--red);
+  --hx-hover-color: var(--red);
+  --hx-base-fallback: var(--red);
+}
+[data-hover="heading"] {
+  --hx-base-color: var(--ink);
+  --hx-hover-color: transparent;
+  --hx-hover-stroke: 1.5px var(--red);
+  --hx-hover-fallback: var(--red);
+  --hx-lift: -3px;
+  --hx-dur: 180ms;
+}
+[data-hover="heading-dark"] {
+  --hx-base-color: #fff;
+  --hx-hover-color: transparent;
+  --hx-hover-stroke: 1.5px var(--red);
+  --hx-hover-fallback: var(--red);
+  --hx-lift: -3px;
+  --hx-dur: 180ms;
+}
+[data-hover="nav"] {
+  --hx-base-color: var(--ink);
+  --hx-hover-color: var(--red);
+  --hx-dur: 260ms;
+}
+
+/* Red accent characters (heading periods) stay red in both layers */
+.hx .accent .l::before { color: var(--red); -webkit-text-stroke: 0 transparent; }
+
+/* Solid fallback when text-stroke is unsupported — outline layers
+   would otherwise render invisible transparent text */
+@supports not (-webkit-text-stroke: 1px black) {
+  .hx .l::before {
+    color: var(--hx-base-fallback, var(--hx-base-color, currentColor));
+    -webkit-text-stroke: 0;
+  }
+  .hx .l::after {
+    color: var(--hx-hover-fallback, var(--hx-hover-color, currentColor));
+    -webkit-text-stroke: 0;
+  }
+}
+@media (forced-colors: active) {
+  .hx .l { color: inherit; }
+  .hx .l::before, .hx .l::after { display: none; }
+}
+
+/* ---------- Industrial reveals ----------
+   Initial hidden states are gated behind html.js (set inline in <head>)
+   or apply to JS-injected nodes only, so no-JS never hides content. */
+
+/* stamp: heading letters drop in like pressed steel */
+[data-reveal="stamp"] .l { opacity: 0; }
+[data-reveal="stamp"].is-revealed .l {
+  animation: stampIn 480ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 20ms);
+}
+@keyframes stampIn {
+  0%   { opacity: 0; transform: scaleY(2.1) translateY(-10px); }
+  55%  { opacity: 1; transform: scaleY(0.94) translateY(2px); }
+  80%  { transform: scaleY(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* plate: photo panels open like steel doors (doors injected by JS) */
+.plate-door {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 51%;
+  background: var(--ink);
+  z-index: 2;
+  transition: transform 640ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+.plate-door--l { left: 0; transform-origin: left; }
+.plate-door--r { right: 0; transform-origin: right; transition-delay: 60ms; }
+.photo-slot--dark .plate-door { background: var(--red); }
+[data-reveal="plate"].is-revealed .plate-door { transform: scaleX(0); }
+
+/* rule: red rules draw across */
+.js [data-reveal="rule"] {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 550ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.js [data-reveal="rule"].is-revealed { transform: scaleX(1); }
+
+/* rise: staggered lift-in for grouped children */
+.js [data-reveal-group] > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 480ms ease-out, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.js [data-reveal-group].is-revealed > * { opacity: 1; transform: none; }
+
+/* ---------- Gears ---------- */
+/* Gears are drawn centered in their own 200x200 viewBox, so rotate
+   about the viewBox center (fill-box would wobble as teeth turn). */
+.gear-spin {
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+  animation: spinSlow var(--spin-dur, 60s) linear infinite;
+  animation-direction: var(--spin-dir, normal);
+}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+
+/* Scroll rotation is applied by JS to the .gear-rotor wrapper */
+.gear-rotor { transform-box: view-box; transform-origin: 50% 50%; will-change: transform; }
+
+/* ---------- Bridge scene ---------- */
+.worker-body {
+  transform: translateY(64px);
+  transition: transform 380ms cubic-bezier(0.6, 0, 0.8, 0.2); /* duck down fast */
+}
+.hit-tower-l:hover ~ .scene .worker--l .worker-body,
+.hit-tower-r:hover ~ .scene .worker--r .worker-body {
+  transform: translateY(6px);
+  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1); /* springy rise */
+}
+.worker-arm {
+  transform-box: fill-box;
+  transform-origin: 15% 90%;
+}
+.hit-tower-l:hover ~ .scene .worker--l .worker-arm,
+.hit-tower-r:hover ~ .scene .worker--r .worker-arm {
+  animation: wave 700ms ease-in-out 2;
+  animation-delay: 480ms; /* wave starts after the rise lands */
+}
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-24deg); }
+  75% { transform: rotate(16deg); }
+}
+
+.susp { --si: 0; }
+.hit-deck:hover ~ .structure .susp {
+  animation: cableShimmer 700ms ease-in-out 1;
+  animation-delay: calc(var(--si) * 40ms);
+}
+@keyframes cableShimmer {
+  50% { stroke-width: 4.5; opacity: 0.55; }
+}
+
+.truck { will-change: transform; }
+
+/* Touch devices: hover scenes need a pointer; keep truck (ambient + tap) */
+@media (hover: none) {
+  .bridge-svg .hit-tower-l,
+  .bridge-svg .hit-tower-r { pointer-events: none; }
+}
+
+/* ---------- Reduced motion: kill everything kinetic ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hx .l, .hx .l::before, .hx .l::after { transition: none; }
+  .hx .l:hover { transform: none; }
+  [data-reveal="stamp"] .l { opacity: 1; animation: none !important; }
+  .plate-door { display: none; }
+  .js [data-reveal="rule"] { transform: none; transition: none; }
+  .js [data-reveal-group] > * { opacity: 1; transform: none; transition: none; }
+  .gear-spin { animation: none; }
+  .marquee-track { animation: none; }
+  .marquee-dup { display: none; }
+  .scroll-cue::before { animation: none; }
+  .worker-body { transform: translateY(64px) !important; transition: none; }
+  .worker-arm, .susp { animation: none !important; }
+  .btn, .card, .event-row .event-date, .logo-ph { transition: none; }
+  .btn:hover, .card:hover, .logo-ph:hover { transform: none; }
+}

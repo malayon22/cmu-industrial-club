@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Industrial Club at CMU</title>
+  <meta name="description" content="The Industrial Club at Carnegie Mellon University — careers and investing in the industrial economy: manufacturing, aerospace, transportation, energy, and infrastructure.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/motion.css">
+
+  <script defer src="js/motion-gate.js"></script>
+  <script defer src="js/interactions.js"></script>
+  <script defer src="js/scrub.js"></script>
+  <script defer src="js/calendar.js"></script>
+  <script defer src="js/nav.js"></script>
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ================= NAV ================= -->
+<nav class="site-nav" aria-label="Main">
+  <a href="#top" class="nav-brand">
+    <img src="assets/images/logo.png" alt="Industrial Club logo — gear rising behind a suspension bridge">
+    <span class="nav-wordmark hx" data-hover="nav">INDUSTRIAL CLUB</span>
+    <span class="nav-at" aria-hidden="true">at CMU</span>
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-panel" id="nav-panel">
+    <div class="nav-links">
+      <a class="nav-link" href="#what-we-do">WHAT WE DO</a>
+      <a class="nav-link" href="#calendar">EVENTS</a>
+      <a class="nav-link" href="#meetings">MEETINGS</a>
+      <a class="nav-link" href="#contact">CONTACT</a>
+    </div>
+  </div>
+  <!-- CLUB TODO: replace with the club's real TartanConnect page URL -->
+  <a class="btn btn--nav" href="https://tartanconnect.cmu.edu">JOIN</a>
+  <button class="nav-toggle" aria-expanded="false" aria-controls="nav-panel" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main id="main">
+
+<!-- ================= HERO · scroll-scrub video 1 ================= -->
+<section class="scrub scrub--hero" id="top" data-video="assets/video/hero.mp4">
+  <div class="scrub-stage">
+    <div class="scrub-placeholder" aria-hidden="true">
+      <div class="ph-label"><strong>SCROLL VIDEO</strong>drop a clip at assets/video/hero.mp4</div>
+    </div>
+    <img class="scrub-poster" src="assets/video/hero-poster.jpg" alt="" aria-hidden="true">
+    <video class="scrub-video" muted playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+    <div class="scrub-scrim" aria-hidden="true"></div>
+    <div class="scrub-content">
+      <h1 class="hero-headline" aria-label="Industrial Club at CMU">
+        <span class="hero-line" style="display:block" data-hover="hero-solid" data-reveal="stamp">INDUSTRIAL</span>
+        <span class="hero-line" style="display:block" data-hover="hero-outline" data-reveal="stamp">CLUB.</span>
+        <span class="hero-at" style="display:block" aria-hidden="true">at CMU</span>
+      </h1>
+      <div class="hero-kicker">OFFICIAL CLUB OF CARNEGIE MELLON UNIVERSITY</div>
+      <div class="hero-buttons">
+        <a class="btn btn-outline" href="#what-we-do">WHAT WE DO</a>
+        <a class="btn btn-outline" href="#calendar">EVENTS</a>
+        <a class="btn btn-filled" href="#meetings">COME TO A MEETING</a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">SCROLL</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TICKER ================= -->
+<div class="marquee" aria-label="Focus areas: manufacturing, aerospace and defense, transportation, energy and infrastructure, supply chain">
+  <div class="marquee-track" aria-hidden="true">
+    <span class="marquee-seg"><span>MANUFACTURING</span>·<span>AEROSPACE &amp; DEFENSE</span>·<span>TRANSPORTATION</span>·<span>ENERGY &amp; INFRASTRUCTURE</span>·<span>SUPPLY CHAIN</span>·</span><span class="marquee-seg marquee-dup"><span>MANUFACTURING</span>·<span>AEROSPACE &amp; DEFENSE</span>·<span>TRANSPORTATION</span>·<span>ENERGY &amp; INFRASTRUCTURE</span>·<span>SUPPLY CHAIN</span>·</span>
+  </div>
+</div>
+
+<!-- ================= BRIDGE + GEAR DIVIDER #1 =================
+     Interactive: hover a tower and a worker pops up to wave,
+     hover the middle and the cables shimmer, click the deck
+     (or just wait) and a truck drives across. -->
+<div class="bridge-divider" aria-hidden="true">
+  <!-- meshed gear pair rising behind the deck (injected by JS) -->
+  <div class="gear-anchor" data-gear="200" data-fill="#C41230" data-spin="60"
+       style="left:50%;margin-left:-100px;bottom:16px;width:200px;height:200px"></div>
+  <div class="gear-anchor" data-gear="124" data-fill="#8E0D23" data-ratio="1.61" data-dir="-1" data-phase="22.5" data-spin="60"
+       style="left:50%;margin-left:76px;bottom:91px;width:124px;height:124px"></div>
+
+  <svg class="bridge-svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <defs>
+      <clipPath id="deckClip-1"><rect x="0" y="0" width="1200" height="168"></rect></clipPath>
+    </defs>
+
+    <!-- hover / tap zones (transparent, catch all pointer events) -->
+    <rect class="hit hit-tower-l" x="140" y="20" width="190" height="180"></rect>
+    <rect class="hit hit-tower-r" x="880" y="20" width="190" height="180"></rect>
+    <rect class="hit hit-deck" x="340" y="60" width="530" height="140"></rect>
+
+    <!-- life on the bridge, clipped so it rises from behind the deck -->
+    <g class="scene" clip-path="url(#deckClip-1)">
+      <g class="worker worker--l" transform="translate(238,168)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--r" transform="translate(952,168)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="truck" transform="translate(-90,168)">
+        <rect x="0" y="-18" width="34" height="12" rx="2" fill="#141414"></rect>
+        <rect x="34" y="-15" width="13" height="9" rx="2" fill="#C41230"></rect>
+        <circle cx="9" cy="-5" r="5" fill="#141414"></circle>
+        <circle cx="39" cy="-5" r="5" fill="#141414"></circle>
+      </g>
+    </g>
+
+    <!-- bridge structure (original drawing from the logo motif) -->
+    <g class="structure">
+      <g fill="#141414">
+        <rect x="0" y="168" width="1200" height="10"></rect>
+        <rect x="196" y="52" width="12" height="118"></rect>
+        <rect x="992" y="52" width="12" height="118"></rect>
+        <rect x="186" y="46" width="32" height="8"></rect>
+        <rect x="982" y="46" width="32" height="8"></rect>
+      </g>
+      <g fill="none" stroke="#141414" stroke-width="6">
+        <path d="M202,58 Q600,180 998,58"></path>
+        <path d="M202,58 Q90,138 0,164"></path>
+        <path d="M998,58 Q1110,138 1200,164"></path>
+      </g>
+      <g stroke="#141414" stroke-width="3">
+        <line class="susp" style="--si:0" x1="282" y1="82" x2="282" y2="168"></line>
+        <line class="susp" style="--si:1" x1="361" y1="98" x2="361" y2="168"></line>
+        <line class="susp" style="--si:2" x1="441" y1="110" x2="441" y2="168"></line>
+        <line class="susp" style="--si:3" x1="520" y1="117" x2="520" y2="168"></line>
+        <line class="susp" style="--si:4" x1="600" y1="120" x2="600" y2="168"></line>
+        <line class="susp" style="--si:5" x1="680" y1="117" x2="680" y2="168"></line>
+        <line class="susp" style="--si:6" x1="759" y1="110" x2="759" y2="168"></line>
+        <line class="susp" style="--si:7" x1="839" y1="98" x2="839" y2="168"></line>
+        <line class="susp" style="--si:8" x1="918" y1="82" x2="918" y2="168"></line>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= MISSION ================= -->
+<section class="section" id="mission">
+  <div class="gear-wm" data-gear="260" data-fill="#141414" data-dir="-1" style="left:-90px;bottom:-80px;opacity:.05"></div>
+  <div class="container">
+    <div class="grid-2">
+      <div class="photo-slot photo-slot--420" data-reveal="plate" role="img" aria-label="Photo coming soon — club photo">
+        <!-- CLUB TODO: replace this placeholder with <img src="assets/images/....jpg" alt="..."> -->
+        <div class="photo-ph"><span>CLUB PHOTO</span><em>coming soon</em></div>
+      </div>
+      <div class="mission-copy">
+        <div class="eyebrow">THE INDUSTRIAL CLUB</div>
+        <div class="red-rule" data-reveal="rule"></div>
+        <h2 class="h2" style="font-size:56px" data-hover="heading" data-reveal="stamp">OUR MISSION<span class="accent">.</span></h2>
+        <p>The Industrial Club prepares Carnegie Mellon students for careers and investing in the industrial economy — manufacturing, aerospace, transportation, energy, and infrastructure — through hands-on analysis, site visits, and connections with people who build things.</p>
+        <a class="rule-link" href="#what-we-do">READ MORE ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT WE DO ================= -->
+<section class="section section--dark" id="what-we-do">
+  <div class="gear-wm" data-gear="540" data-fill="#ffffff" style="right:-150px;top:-130px;opacity:.08"></div>
+  <div class="container">
+    <h2 class="h2" style="margin-bottom:70px" data-hover="heading-dark" data-reveal="stamp">WHAT WE DO<span class="accent">.</span></h2>
+    <div class="grid-wwd">
+      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — career workshop">
+        <div class="photo-ph"><span>CAREER WORKSHOP PHOTO</span><em>coming soon</em></div>
+      </div>
+      <div class="wwd-block">
+        <h3 data-hover="heading-dark" data-reveal="stamp">CAREER EXPLORATION &amp; INTERVIEW PREP</h3>
+        <ul data-reveal-group>
+          <li>Map career paths across industrials — operations, corporate finance, equity research, and industrial tech.</li>
+          <li>Run workshops and mock interviews so members walk into recruiting prepared.</li>
+        </ul>
+      </div>
+      <div class="wwd-block">
+        <h3 data-hover="heading-dark" data-reveal="stamp">SECTOR DEEP DIVES</h3>
+        <ul data-reveal-group>
+          <li>Break down current events moving industrial markets — from reshoring to defense budgets to freight cycles.</li>
+          <li>Study the history of the sector to understand the forces behind macro trends.</li>
+        </ul>
+      </div>
+      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — club meeting">
+        <div class="photo-ph"><span>MEETING PHOTO</span><em>coming soon</em></div>
+      </div>
+      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — site visit">
+        <div class="photo-ph"><span>SITE VISIT PHOTO</span><em>coming soon</em></div>
+      </div>
+      <div class="wwd-block">
+        <h3 data-hover="heading-dark" data-reveal="stamp">SITE VISITS &amp; TOURS</h3>
+        <ul data-reveal-group>
+          <li>Get on the floor — tours of plants, ports, and facilities around Pittsburgh.</li>
+          <li>See how the concepts from meetings play out in real operations.</li>
+        </ul>
+      </div>
+      <div class="wwd-block">
+        <h3 data-hover="heading-dark" data-reveal="stamp">FINANCIAL MODELING SKILLS</h3>
+        <ul data-reveal-group>
+          <li>Build models for industrial businesses — unit economics, capex cycles, and valuation.</li>
+          <li>Practice through case studies with hands-on modeling experience.</li>
+        </ul>
+      </div>
+      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — modeling session">
+        <div class="photo-ph"><span>MODELING SESSION PHOTO</span><em>coming soon</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INTERLUDE · scroll-scrub video 2 ================= -->
+<section class="scrub scrub--mid" data-video="assets/video/interlude.mp4">
+  <div class="scrub-stage">
+    <div class="scrub-placeholder" aria-hidden="true">
+      <div class="ph-label"><strong>SCROLL VIDEO</strong>drop a clip at assets/video/interlude.mp4</div>
+    </div>
+    <img class="scrub-poster" src="assets/video/interlude-poster.jpg" alt="" aria-hidden="true">
+    <video class="scrub-video" muted playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+    <div class="scrub-scrim" aria-hidden="true"></div>
+    <div class="scrub-content scrub-content--center">
+      <div>
+        <h2 class="interlude-type" style="margin:0" aria-label="The real economy runs on industrials.">
+          <span style="display:block" data-hover="interlude-solid" data-reveal="stamp">THE REAL ECONOMY</span>
+          <span style="display:block" data-hover="interlude-outline" data-reveal="stamp">RUNS ON INDUSTRIALS.</span>
+        </h2>
+        <div class="interlude-sub">STEEL · RAIL · POWER · FLIGHT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHAT'S HAPPENING · calendar ================= -->
+<section class="section section--calendar" id="calendar">
+  <div class="gear-wm" data-gear="520" data-fill="#C41230" style="left:-170px;bottom:-150px;opacity:.06"></div>
+  <div class="container">
+    <div class="calendar-header">
+      <h2 class="h2" style="margin:0" data-hover="heading" data-reveal="stamp">WHAT'S HAPPENING<span class="accent">.</span></h2>
+      <span class="pill" id="calendar-pill">● SAMPLE FEED · CONNECTS TO GOOGLE CALENDAR</span>
+    </div>
+    <div class="red-rule" data-reveal="rule"></div>
+    <p class="calendar-intro">Today's meeting and upcoming events, synced straight from our club Google Calendar — title, time, place, and description update automatically.</p>
+    <div id="calendar-list" data-reveal-group></div>
+    <!-- Hidden automatically once the calendar is wired up in js/calendar.js -->
+    <div class="config-note" id="calendar-note">Sample events shown. To go live: make the club Google Calendar public, then paste its Calendar ID and a Google API key into the config block at the top of <code>js/calendar.js</code> — the list above will sync automatically.</div>
+  </div>
+</section>
+
+<template id="event-row-template">
+  <div class="event-row">
+    <div class="event-date">
+      <span class="day" data-field="day"></span>
+      <span class="month" data-field="month"></span>
+    </div>
+    <div>
+      <div class="event-title" data-field="title"></div>
+      <div class="event-desc" data-field="desc"></div>
+    </div>
+    <div class="event-meta">
+      <div class="time" data-field="time"></div>
+      <div class="place" data-field="location"></div>
+    </div>
+  </div>
+</template>
+
+<!-- ================= MEETINGS ================= -->
+<section class="section section--meetings" id="meetings">
+  <div class="gear-wm" data-gear="300" data-fill="#C41230" data-dir="-1" style="right:-100px;top:-60px;opacity:.05"></div>
+  <div class="container">
+    <div class="grid-2 meetings-intro">
+      <div class="photo-slot photo-slot--400" data-reveal="plate" role="img" aria-label="Photo coming soon — general body meeting">
+        <div class="photo-ph"><span>GENERAL BODY MEETING PHOTO</span><em>coming soon</em></div>
+      </div>
+      <div>
+        <h2 class="h2 h2--sm" style="line-height:1.05" data-hover="heading" data-reveal="stamp">COME TO OUR NEXT MEETING<span class="accent">.</span></h2>
+        <p>Weekly general body meetings where we learn the industrial sector together. New content every week — no experience needed.</p>
+      </div>
+    </div>
+    <div class="grid-cards" data-reveal-group>
+      <!-- CLUB TODO: fill in the real room and meeting time -->
+      <div class="card"><h3>MEETING LOCATION</h3><p>Carnegie Mellon University — room TBD</p></div>
+      <div class="card"><h3>MEETING SCHEDULE</h3><p>Day &amp; time TBD — check TartanConnect</p></div>
+      <div class="card"><h3>BEGINNER FRIENDLY</h3><p>Come with something to take notes — that's all you need.</p></div>
+      <div class="card"><h3>SPECIAL EVENTS</h3><p>Mailing list, socials, and site visits throughout the semester.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BRIDGE + GEAR DIVIDER #2 · 3-gear train ================= -->
+<div class="bridge-divider" aria-hidden="true">
+  <div class="gear-anchor" data-gear="190" data-fill="#C41230" data-spin="70"
+       style="left:50%;margin-left:-95px;bottom:20px;width:190px;height:190px"></div>
+  <div class="gear-anchor" data-gear="120" data-fill="#8E0D23" data-ratio="1.58" data-dir="-1" data-phase="22.5" data-spin="70"
+       style="left:50%;margin-left:-194px;bottom:84px;width:120px;height:120px"></div>
+  <div class="gear-anchor" data-gear="140" data-fill="#8E0D23" data-ratio="1.36" data-dir="-1" data-phase="22.5" data-spin="70"
+       style="left:50%;margin-left:74px;bottom:70px;width:140px;height:140px"></div>
+
+  <svg class="bridge-svg" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <defs>
+      <clipPath id="deckClip-2"><rect x="0" y="0" width="1200" height="168"></rect></clipPath>
+    </defs>
+    <rect class="hit hit-tower-l" x="140" y="20" width="190" height="180"></rect>
+    <rect class="hit hit-tower-r" x="880" y="20" width="190" height="180"></rect>
+    <rect class="hit hit-deck" x="340" y="60" width="530" height="140"></rect>
+    <g class="scene" clip-path="url(#deckClip-2)">
+      <g class="worker worker--l" transform="translate(238,168)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--r" transform="translate(952,168)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="truck" transform="translate(-90,168)">
+        <rect x="0" y="-18" width="34" height="12" rx="2" fill="#141414"></rect>
+        <rect x="34" y="-15" width="13" height="9" rx="2" fill="#C41230"></rect>
+        <circle cx="9" cy="-5" r="5" fill="#141414"></circle>
+        <circle cx="39" cy="-5" r="5" fill="#141414"></circle>
+      </g>
+    </g>
+    <g class="structure">
+      <g fill="#141414">
+        <rect x="0" y="168" width="1200" height="10"></rect>
+        <rect x="196" y="52" width="12" height="118"></rect>
+        <rect x="992" y="52" width="12" height="118"></rect>
+        <rect x="186" y="46" width="32" height="8"></rect>
+        <rect x="982" y="46" width="32" height="8"></rect>
+      </g>
+      <g fill="none" stroke="#141414" stroke-width="6">
+        <path d="M202,58 Q600,180 998,58"></path>
+        <path d="M202,58 Q90,138 0,164"></path>
+        <path d="M998,58 Q1110,138 1200,164"></path>
+      </g>
+      <g stroke="#141414" stroke-width="3">
+        <line class="susp" style="--si:0" x1="282" y1="82" x2="282" y2="168"></line>
+        <line class="susp" style="--si:1" x1="361" y1="98" x2="361" y2="168"></line>
+        <line class="susp" style="--si:2" x1="441" y1="110" x2="441" y2="168"></line>
+        <line class="susp" style="--si:3" x1="520" y1="117" x2="520" y2="168"></line>
+        <line class="susp" style="--si:4" x1="600" y1="120" x2="600" y2="168"></line>
+        <line class="susp" style="--si:5" x1="680" y1="117" x2="680" y2="168"></line>
+        <line class="susp" style="--si:6" x1="759" y1="110" x2="759" y2="168"></line>
+        <line class="susp" style="--si:7" x1="839" y1="98" x2="839" y2="168"></line>
+        <line class="susp" style="--si:8" x1="918" y1="82" x2="918" y2="168"></line>
+      </g>
+    </g>
+  </svg>
+</div>
+
+<!-- ================= NETWORK ================= -->
+<section class="section section--network">
+  <div class="container">
+    <h2 class="h2 h2--sm" data-hover="heading" data-reveal="stamp">OUR NETWORK<span class="accent">.</span></h2>
+    <p class="network-intro">Our network includes professionals and alumni from top industrial and finance firms across the country.</p>
+    <!-- CLUB TODO: swap these placeholders for real partner/firm logos -->
+    <div class="grid-logos" data-reveal-group>
+      <div class="logo-ph">LOGO</div>
+      <div class="logo-ph">LOGO</div>
+      <div class="logo-ph">LOGO</div>
+      <div class="logo-ph">LOGO</div>
+      <div class="logo-ph">LOGO</div>
+      <div class="logo-ph">LOGO</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOIN CTA · scroll-scrub video 3 ================= -->
+<section class="scrub scrub--mid" data-video="assets/video/join.mp4">
+  <div class="scrub-stage">
+    <div class="scrub-placeholder" aria-hidden="true">
+      <div class="ph-label"><strong>SCROLL VIDEO</strong>drop a clip at assets/video/join.mp4</div>
+    </div>
+    <img class="scrub-poster" src="assets/video/join-poster.jpg" alt="" aria-hidden="true">
+    <video class="scrub-video" muted playsinline preload="none" tabindex="-1" aria-hidden="true"></video>
+    <div class="scrub-scrim" aria-hidden="true"></div>
+    <div class="scrub-content scrub-content--center">
+      <div>
+        <h2 class="join-type" style="margin:0" data-hover="hero-solid" data-reveal="stamp">BUILD WITH US<span class="accent">.</span></h2>
+        <div class="join-buttons">
+          <!-- CLUB TODO: real TartanConnect + mailing list links -->
+          <a class="btn btn-filled btn--lg" href="https://tartanconnect.cmu.edu">JOIN THE CLUB</a>
+          <a class="btn btn-outline btn--lg" href="#contact">MAILING LIST</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="site-footer" id="contact">
+  <div class="gear-wm" data-gear="380" data-fill="#ffffff" style="right:-80px;bottom:-140px;opacity:.05"></div>
+  <svg class="footer-skyline" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true">
+    <g fill="rgba(255,255,255,0.06)">
+      <rect x="0" y="34" width="70" height="26"></rect>
+      <rect x="80" y="22" width="46" height="38"></rect>
+      <rect x="134" y="40" width="80" height="20"></rect>
+      <rect x="222" y="14" width="30" height="46"></rect>
+      <rect x="258" y="30" width="60" height="30"></rect>
+      <rect x="330" y="44" width="120" height="16"></rect>
+      <rect x="460" y="24" width="24" height="36"></rect>
+      <rect x="492" y="36" width="70" height="24"></rect>
+      <rect x="640" y="36" width="70" height="24"></rect>
+      <rect x="722" y="18" width="26" height="42"></rect>
+      <rect x="756" y="32" width="64" height="28"></rect>
+      <rect x="830" y="44" width="110" height="16"></rect>
+      <rect x="950" y="20" width="40" height="40"></rect>
+      <rect x="998" y="34" width="72" height="26"></rect>
+      <rect x="1080" y="26" width="34" height="34"></rect>
+      <rect x="1122" y="40" width="78" height="20"></rect>
+    </g>
+    <!-- little bridge tying the skyline back to the logo -->
+    <g stroke="rgba(255,255,255,0.10)" fill="none" stroke-width="3">
+      <path d="M566,28 Q600,52 634,28"></path>
+      <line x1="566" y1="28" x2="566" y2="58"></line>
+      <line x1="634" y1="28" x2="634" y2="58"></line>
+      <line x1="583" y1="40" x2="583" y2="58"></line>
+      <line x1="600" y1="44" x2="600" y2="58"></line>
+      <line x1="617" y1="40" x2="617" y2="58"></line>
+    </g>
+    <rect x="560" y="56" width="80" height="4" fill="rgba(255,255,255,0.10)"></rect>
+  </svg>
+  <div class="footer-inner">
+    <img src="assets/images/logo.png" alt="">
+    <div class="footer-id">
+      <div class="brand">INDUSTRIAL CLUB <em>at CMU</em></div>
+      <div>5000 Forbes Avenue, Pittsburgh, PA 15213 · industrialclub@andrew.cmu.edu</div>
+    </div>
+    <div class="nav-spacer"></div>
+    <!-- CLUB TODO: real Instagram / LinkedIn / Slack URLs -->
+    <div class="footer-links">
+      <a href="#top">INSTAGRAM</a>
+      <a href="#top">LINKEDIN</a>
+      <a href="#top">SLACK</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

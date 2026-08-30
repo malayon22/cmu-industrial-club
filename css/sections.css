@@ -1,0 +1,325 @@
+/* ============================================================
+   Sections: scrub stages, hero, divider scenes, page sections
+   ============================================================ */
+
+/* ---------- Scroll-scrub video sections ----------
+   Tall wrapper + sticky stage. No ancestor of .scrub may have
+   overflow:hidden or position:sticky breaks (handoff gotcha). */
+.scrub {
+  position: relative;
+  background: var(--ink-2);
+}
+.scrub--hero { height: 260vh; background: var(--ink); }
+.scrub--mid  { height: 200vh; }
+
+.scrub-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.scrub-placeholder {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, #1b1b1b 0 28px, #212121 28px 56px);
+  display: grid;
+  place-items: center;
+}
+.scrub-placeholder .ph-label {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+.scrub-placeholder .ph-label strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 4px;
+  letter-spacing: 0.1em;
+}
+
+.scrub-poster,
+.scrub-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.scrub-video { opacity: 0; transition: opacity 0.4s ease; }
+.scrub.scrub-ready .scrub-video { opacity: 1; }
+.scrub.scrub-failed .scrub-video { display: none; }
+
+.scrub-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--scrim-color);
+  opacity: var(--scrim-opacity);
+  pointer-events: none; /* keep links beneath clickable (handoff gotcha) */
+}
+
+.scrub-content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 var(--gutter);
+  color: #fff;
+}
+.scrub-content--center {
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+/* ---------- Hero ---------- */
+.hero-headline {
+  font-family: var(--font-display);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+}
+.hero-line { font-size: clamp(48px, 8.5vw, 150px); }
+
+.hero-at {
+  font-family: var(--font-display);
+  text-transform: lowercase;
+  color: var(--red);
+  font-size: clamp(20px, 2.2vw, 34px);
+  letter-spacing: 0.16em;
+  margin-top: 14px;
+}
+
+.hero-kicker {
+  margin-top: 26px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-buttons {
+  margin-top: 34px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 32px;
+  left: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+}
+.scroll-cue::before {
+  content: "";
+  width: 1px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: cuePulse 2.2s ease-in-out infinite;
+}
+@keyframes cuePulse {
+  0%, 100% { transform: scaleY(1); opacity: 0.5; }
+  50% { transform: scaleY(0.55); opacity: 1; }
+}
+
+/* ---------- Interlude / Join type ---------- */
+.interlude-type {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5.5vw, 84px);
+  line-height: 1.05;
+}
+.interlude-sub {
+  margin-top: 18px;
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.8);
+}
+.join-type {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 7vw, 110px);
+  line-height: 1;
+}
+.join-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ---------- Bridge + gear divider ----------
+   Band raised 210px -> 240px and gears sized/positioned so no gear
+   pokes above the band into the red ticker (>=20px clearance). */
+.bridge-divider {
+  position: relative;
+  overflow: hidden;
+  background: var(--bone);
+  height: 240px;
+}
+.bridge-svg {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.bridge-svg .structure,
+.bridge-svg .scene { pointer-events: none; }
+.bridge-svg .hit { fill: transparent; pointer-events: fill; cursor: pointer; }
+
+/* Divider gear cluster anchors (gears injected by JS) */
+.gear-anchor {
+  position: absolute;
+  pointer-events: none;
+}
+.gear-anchor svg { display: block; width: 100%; height: 100%; }
+
+/* Gear watermarks inside sections */
+.gear-wm {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+.gear-wm svg { display: block; width: 100%; height: 100%; }
+.section > .container { position: relative; z-index: 1; }
+
+/* ---------- Dark sections ---------- */
+.section--dark {
+  background: var(--ink);
+  color: #fff;
+}
+.section--dark .h2 { color: #fff; }
+
+.wwd-block h3 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  margin: 0 0 16px;
+  letter-spacing: 0.02em;
+}
+.wwd-block ul {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 12px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--on-dark-body);
+}
+
+/* ---------- Mission ---------- */
+.mission-copy p {
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--body-text);
+  margin: 0 0 26px;
+  text-wrap: pretty;
+}
+
+/* ---------- Calendar ---------- */
+.section--calendar { background: var(--bone); }
+.calendar-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.calendar-intro {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0 0 40px;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+
+/* ---------- Meetings ---------- */
+.section--meetings {
+  background: #fff;
+  border-top: 1px solid rgba(20, 20, 20, 0.1);
+}
+.meetings-intro { margin-bottom: 80px; }
+.meetings-intro p { font-size: 18px; line-height: 1.65; color: var(--body-text); margin: 0; }
+
+/* ---------- Network ---------- */
+.section--network { text-align: center; }
+.section--network .h2 { margin-bottom: 16px; }
+.network-intro {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 auto 50px;
+  text-wrap: pretty;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--ink);
+  color: var(--footer-text);
+  position: relative;
+  overflow: hidden;
+}
+.footer-skyline {
+  display: block;
+  width: 100%;
+  height: 60px;
+  pointer-events: none;
+}
+.footer-inner {
+  padding: 40px var(--gutter) 60px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.footer-inner img {
+  width: 56px; height: 56px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #fff;
+}
+.footer-id { font-size: 14px; line-height: 1.7; }
+.footer-id .brand {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+.footer-id .brand em {
+  font-style: normal;
+  text-transform: lowercase;
+  color: var(--red);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+.footer-links a { color: var(--footer-text); transition: color 0.18s ease; }
+.footer-links a:hover { color: #fff; }
+
+/* ---------- Mobile / touch / reduced motion: collapse scrub sections ----------
+   Matches js/motion-gate.js. Static poster, normal-height section, no dead scroll. */
+@media (max-width: 900px), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .scrub, .scrub--hero, .scrub--mid { height: auto; min-height: 72vh; }
+  .scrub-stage { position: relative; height: auto; min-height: 72vh; }
+  .scrub-content { padding-top: 120px; padding-bottom: 80px; }
+  .scrub-content--center { padding-top: 90px; padding-bottom: 90px; }
+  .scroll-cue { display: none; }
+}

@@ -1,0 +1,35 @@
+/* ============================================================
+   Industrial Club — design tokens
+   Source of truth: design handoff README (colors, type, spacing)
+   ============================================================ */
+:root {
+  /* Color */
+  --red: #C41230;
+  --red-hover: #8E0D23;
+  --ink: #141414;
+  --ink-2: #0d0d0d;
+  --bone: #F7F5F2;
+  --white: #ffffff;
+  --body-text: #3a3a3a;
+  --muted: #555555;
+  --muted-2: #666666;
+  --placeholder-text: #999999;
+  --on-dark-body: rgba(255, 255, 255, 0.82);
+  --footer-text: rgba(255, 255, 255, 0.75);
+  --hairline: rgba(20, 20, 20, 0.14);
+  --hairline-strong: rgba(20, 20, 20, 0.18);
+  --hairline-dashed: rgba(20, 20, 20, 0.32);
+  --nav-glass: rgba(247, 245, 242, 0.88);
+  --scrim-color: #0a0a0a;
+  --scrim-opacity: 0.45;
+
+  /* Type */
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-body: 'Archivo', 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --container-max: 1400px;
+  --gutter: 6vw;
+  --nav-height: 72px;
+  --section-pad: 110px;
+}

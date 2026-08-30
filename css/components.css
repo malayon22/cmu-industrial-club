@@ -1,0 +1,237 @@
+/* ============================================================
+   Components: buttons, marquee, cards, event rows, placeholders
+   ============================================================ */
+
+/* ---------- Buttons (square corners, Anton) ---------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  font-size: 15px;
+  padding: 12px 26px;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn-outline {
+  border: 2px solid #fff;
+  color: #fff;
+}
+.btn-outline:hover { background: #fff; color: var(--ink); }
+
+.btn-filled {
+  background: var(--red);
+  border: 2px solid var(--red);
+  color: #fff;
+}
+.btn-filled:hover { background: var(--red-hover); border-color: var(--red-hover); color: #fff; }
+
+.btn--nav {
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  padding: 10px 22px;
+  border: none;
+  background: var(--red);
+  color: #fff;
+}
+.btn--nav:hover { background: var(--red-hover); color: #fff; transform: none; }
+
+.btn--lg { font-size: 18px; padding: 16px 40px; }
+.btn--lg.btn-outline { padding: 14px 40px; }
+
+/* Underline link (READ MORE ↓) with a sweep effect */
+.rule-link {
+  display: inline-block;
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding-bottom: 4px;
+  position: relative;
+}
+.rule-link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background: var(--red);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.rule-link:hover { color: var(--red); }
+.rule-link:hover::after { transform: scaleX(0.4); }
+
+/* ---------- Marquee ticker ---------- */
+.marquee {
+  background: var(--red);
+  color: #fff;
+  overflow: hidden;
+  padding: 12px 0;
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  font-size: 16px;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2; /* stays above the divider band below it */
+}
+.marquee-track {
+  display: inline-block;
+  animation: tickL 22s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-seg { display: inline-block; }
+.marquee-seg span { padding: 0 28px; }
+@keyframes tickL { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- Eyebrow + heading furniture ---------- */
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.accent { color: var(--red); }
+
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  margin: 0 0 24px;
+  line-height: 1;
+}
+.h2--sm { font-size: clamp(36px, 4.5vw, 64px); }
+
+/* Red rule that draws itself in (data-reveal="rule") */
+.red-rule {
+  height: 4px;
+  background: var(--red);
+  width: 72px;
+  margin-bottom: 22px;
+}
+
+/* ---------- Live pill ---------- */
+.pill {
+  border: 1px solid var(--red);
+  color: var(--red);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+
+/* ---------- Event rows ---------- */
+.event-row {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) 230px;
+  gap: 28px;
+  align-items: center;
+  border-top: 1px solid var(--hairline-strong);
+  padding: 26px 12px;
+  margin: 0 -12px;
+  transition: background 0.2s ease;
+}
+.event-row:hover { background: #fff; }
+.event-date {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 14px 8px;
+  transition: transform 0.2s ease;
+}
+.event-row:hover .event-date { transform: rotate(-2deg); }
+.event-date .day {
+  font-family: var(--font-display);
+  font-size: 30px;
+  color: var(--red);
+  line-height: 1;
+  display: block;
+}
+.event-date .month {
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  margin-top: 4px;
+  display: block;
+}
+.event-title { font-family: var(--font-display); font-size: 24px; letter-spacing: 0.01em; }
+.event-desc { font-size: 15px; color: var(--muted); line-height: 1.6; margin-top: 6px; text-wrap: pretty; }
+.event-meta { text-align: right; font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: var(--body-text); }
+.event-meta .time { color: var(--red); font-size: 16px; }
+.event-meta .place { margin-top: 4px; }
+
+.event-skeleton .event-title,
+.event-skeleton .event-desc { color: transparent; background: rgba(20, 20, 20, 0.07); }
+
+.config-note {
+  margin-top: 26px;
+  border: 1px dashed var(--hairline-dashed);
+  padding: 16px 20px;
+  font-size: 14px;
+  color: var(--muted-2);
+  line-height: 1.6;
+}
+
+/* ---------- Meeting cards ---------- */
+.card {
+  border-top: 4px solid var(--red);
+  background: var(--bone);
+  padding: 26px 24px;
+  transition: transform 0.22s ease, border-top-width 0.22s ease;
+}
+.card:hover { transform: translateY(-6px); }
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  margin: 0 0 10px;
+  letter-spacing: 0.02em;
+}
+.card p { font-size: 15px; line-height: 1.55; color: var(--body-text); margin: 0; }
+
+/* ---------- Photo placeholder frames ---------- */
+.photo-ph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 6px;
+  text-align: center;
+  border: 1px dashed var(--hairline-dashed);
+  background:
+    repeating-linear-gradient(45deg, rgba(20, 20, 20, 0.03) 0 22px, rgba(20, 20, 20, 0.06) 22px 44px);
+}
+.photo-ph span {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  color: var(--placeholder-text);
+}
+.photo-ph em {
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--placeholder-text);
+}
+.photo-slot--dark .photo-ph {
+  border-color: rgba(255, 255, 255, 0.25);
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 22px, rgba(255, 255, 255, 0.08) 22px 44px);
+}
+.photo-slot--dark .photo-ph span,
+.photo-slot--dark .photo-ph em { color: rgba(255, 255, 255, 0.45); }
+
+/* ---------- Network logo placeholders ---------- */
+.logo-ph {
+  height: 80px;
+  border: 1px dashed var(--hairline-dashed);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--placeholder-text);
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.logo-ph:hover {
+  border-color: var(--red);
+  color: var(--red);
+  transform: translateY(-3px);
+}
