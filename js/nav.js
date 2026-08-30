@@ -15,7 +15,14 @@
       }
 
       toggle.addEventListener('click', function () {
-        setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        var open = toggle.getAttribute('aria-expanded') !== 'true';
+        setOpen(open);
+        /* the panel sits BEFORE the toggle in the DOM, so forward-Tab
+           would skip it — move focus into the menu when it opens */
+        if (open) {
+          var first = panel.querySelector('.nav-link');
+          if (first) first.focus();
+        }
       });
 
       panel.addEventListener('click', function (e) {

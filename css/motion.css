@@ -116,6 +116,7 @@ a:focus-visible .hx .l::after { opacity: 1; }
 /* stamp: heading letters drop in like pressed steel */
 [data-reveal="stamp"] .l { opacity: 0; }
 [data-reveal="stamp"].is-revealed .l {
+  opacity: 1; /* resting state once JS releases the finished animation */
   animation: stampIn 480ms cubic-bezier(0.2, 0.8, 0.3, 1) both;
   animation-delay: calc(var(--i, 0) * 20ms);
 }
@@ -227,6 +228,7 @@ a:focus-visible .hx .l::after { opacity: 1; }
   .scroll-cue::before { animation: none; }
   .worker-body { transform: translateY(64px) !important; transition: none; }
   .worker-arm, .susp { animation: none !important; }
-  .btn, .card, .event-row .event-date, .logo-ph { transition: none; }
-  .btn:hover, .card:hover, .logo-ph:hover { transform: none; }
+  .btn, .card, .event-row .event-date, .logo-ph, .rule-link::after, .nav-panel { transition: none; }
+  .btn:hover, .card:hover, .logo-ph:hover,
+  .event-row:hover .event-date, .rule-link:hover::after { transform: none; }
 }

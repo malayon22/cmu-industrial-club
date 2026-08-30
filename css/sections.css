@@ -249,7 +249,7 @@
   border-top: 1px solid rgba(20, 20, 20, 0.1);
 }
 .meetings-intro { margin-bottom: 80px; }
-.meetings-intro p { font-size: 18px; line-height: 1.65; color: var(--body-text); margin: 0; }
+.meetings-intro p { font-size: 18px; line-height: 1.65; color: var(--body-text); margin: 0; text-wrap: pretty; }
 
 /* ---------- Network ---------- */
 .section--network { text-align: center; }

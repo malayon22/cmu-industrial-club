@@ -88,6 +88,15 @@
         sections.forEach(function (s) {
           if (fallback) {
             s.el.classList.remove('scrub-ready');
+            /* release the buffered video entirely — fallback mode
+               promises no video is loaded */
+            if (s.loaded) {
+              s.video.pause();
+              s.video.removeAttribute('src');
+              s.video.load();
+              s.loaded = false;
+              s.ready = false;
+            }
           } else {
             if (!s.loaded) s.load();
             if (s.ready) { s.el.classList.add('scrub-ready'); scrubOne(s); }

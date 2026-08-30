@@ -75,6 +75,13 @@
   function initReveals() {
     var targets = document.querySelectorAll('[data-reveal], [data-reveal-group]');
 
+    /* Once a letter's stamp-in finishes, drop the animation from the
+       cascade — a filled animation would otherwise override the
+       :hover transform (--hx-lift) forever. */
+    document.addEventListener('animationend', function (e) {
+      if (e.animationName === 'stampIn') e.target.style.animation = 'none';
+    });
+
     /* Inject steel-plate doors (JS-owned so no-JS never hides photos) */
     document.querySelectorAll('[data-reveal="plate"]').forEach(function (slot) {
       ['plate-door plate-door--l', 'plate-door plate-door--r'].forEach(function (cls) {
@@ -156,7 +163,7 @@
   }
 
   function initGears() {
-    var rotate = IC.gate.reducedMotion() ? null : [];
+    var rotate = [];
 
     document.querySelectorAll('[data-gear]').forEach(function (host) {
       var size = parseFloat(host.dataset.gear);          /* rendered box px */
@@ -175,15 +182,24 @@
 
       var rotor = host.querySelector('.gear-rotor');
       rotor.style.transform = 'rotate(' + phase + 'deg)';
-      if (rotate) rotate.push({ rotor: rotor, k: 0.06 * ratio * dir, phase: phase });
+      rotate.push({ rotor: rotor, k: 0.06 * ratio * dir, phase: phase });
     });
 
-    if (rotate && rotate.length) {
+    if (rotate.length) {
+      /* gate checked per tick so a live OS reduced-motion toggle stops
+         scroll rotation immediately, matching the CSS kill-switch */
       IC.scroll.on(function (y) {
+        if (IC.gate.reducedMotion()) return;
         for (var i = 0; i < rotate.length; i++) {
           var g = rotate[i];
           g.rotor.style.transform = 'rotate(' + (y * g.k + g.phase) + 'deg)';
         }
+      });
+      IC.gate.onChange(function () {
+        if (!IC.gate.reducedMotion()) return;
+        rotate.forEach(function (g) {
+          g.rotor.style.transform = 'rotate(' + g.phase + 'deg)';
+        });
       });
     }
   }
@@ -226,7 +242,14 @@
         schedule();
       }, delay);
     }
-    if (!IC.gate.reducedMotion()) schedule();
+    var scheduled = false;
+    function armAmbient() {
+      if (scheduled || IC.gate.reducedMotion()) return;
+      scheduled = true;
+      schedule();
+    }
+    armAmbient();
+    IC.gate.onChange(armAmbient); /* reduced-motion turned off mid-session */
 
     var deck = svg.querySelector('.hit-deck');
     if (deck) deck.addEventListener('pointerup', driveTruck);

@@ -162,6 +162,18 @@
 .event-skeleton .event-title,
 .event-skeleton .event-desc { color: transparent; background: rgba(20, 20, 20, 0.07); }
 
+/* Responsive event rows — the fixed 100px/230px side columns starve
+   the flexible middle column on small screens (0px wide below ~410px) */
+@media (max-width: 900px) {
+  .event-row { grid-template-columns: 80px minmax(0, 1fr) 150px; gap: 16px; }
+}
+@media (max-width: 640px) {
+  /* stack: date chip, then title/desc, then time/place */
+  .event-row { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .event-date { justify-self: start; min-width: 76px; padding: 10px 14px; }
+  .event-meta { text-align: left; }
+}
+
 .config-note {
   margin-top: 26px;
   border: 1px dashed var(--hairline-dashed);
@@ -185,7 +197,7 @@
   margin: 0 0 10px;
   letter-spacing: 0.02em;
 }
-.card p { font-size: 15px; line-height: 1.55; color: var(--body-text); margin: 0; }
+.card p { font-size: 15px; line-height: 1.55; color: var(--body-text); margin: 0; text-wrap: pretty; }
 
 /* ---------- Photo placeholder frames ---------- */
 .photo-ph {
@@ -199,17 +211,19 @@
   background:
     repeating-linear-gradient(45deg, rgba(20, 20, 20, 0.03) 0 22px, rgba(20, 20, 20, 0.06) 22px 44px);
 }
+/* #666 (not the spec's #999) so placeholder labels clear WCAG AA
+   contrast on the bone background — they ship as real content */
 .photo-ph span {
   font-family: var(--font-display);
   font-size: 15px;
   letter-spacing: 0.14em;
-  color: var(--placeholder-text);
+  color: var(--muted-2);
 }
 .photo-ph em {
   font-style: normal;
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: var(--placeholder-text);
+  color: var(--muted-2);
 }
 .photo-slot--dark .photo-ph {
   border-color: rgba(255, 255, 255, 0.25);
@@ -227,7 +241,7 @@
   place-items: center;
   font-size: 12px;
   letter-spacing: 0.1em;
-  color: var(--placeholder-text);
+  color: var(--muted-2); /* AA contrast on bone, see .photo-ph note */
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .logo-ph:hover {
