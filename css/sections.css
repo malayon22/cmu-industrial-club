@@ -279,10 +279,22 @@
 .team-dot.active { background: var(--red); }
 
 @media (max-width: 900px) {
-  .team-slider { gap: 12px; }
+  /* Stacked card: arrows overlay the photo edges (carousel-style)
+     instead of centering against the whole tall column */
+  .team-slider { display: block; position: relative; }
   .team-card { grid-template-columns: minmax(0, 1fr); gap: 26px; }
   .team-photo { height: 280px; }
-  .team-arrow { width: 44px; height: 44px; font-size: 18px; }
+  .team-arrow {
+    position: absolute;
+    top: 118px; /* photo height 280 / 2 - button half */
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    background: rgba(20, 20, 20, 0.55);
+  }
+  .team-prev { left: 8px; }
+  .team-next { right: 8px; }
 }
 
 /* ---------- Mission ---------- */

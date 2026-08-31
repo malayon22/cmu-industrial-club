@@ -230,7 +230,7 @@
       var el = svg.querySelector('.worker--' + side);
       var hit = svg.querySelector('.hit-tower-' + side);
       if (!el || !hit) return;
-      var w = { el: el, x: side === 'l' ? 238 : 952, up: false };
+      var w = { el: el, hit: hit, x: side === 'l' ? 238 : 952, up: false };
       hit.addEventListener('pointerenter', function () { w.up = true; });
       hit.addEventListener('pointerleave', function () { w.up = false; });
       workers.push(w);
@@ -265,7 +265,12 @@
       w.up = false;
       w.el.classList.remove('up');
       w.el.classList.add('worker-down'); /* forced below deck, fast */
-      window.setTimeout(function () { w.el.classList.remove('worker-down'); }, 5000);
+      window.setTimeout(function () {
+        w.el.classList.remove('worker-down');
+        /* pointer may never have left the tower zone: resync so the
+           re-risen worker isn't immune to the next truck */
+        if (w.hit && w.hit.matches && w.hit.matches(':hover')) w.up = true;
+      }, 5000);
       if (!boom || IC.gate.reducedMotion()) return;
       boom.setAttribute('transform', 'translate(' + w.x.toFixed(0) + ',150)');
       boom.classList.remove('go');
@@ -300,7 +305,8 @@
         var hi = Math.max(prevX, x) + 55;
         for (var i = 0; i < workers.length; i++) {
           var w = workers[i];
-          if (w.up && w.x > lo && w.x < hi) runOver(w);
+          /* worker-down guard: no double-booms on someone already flat */
+          if (w.up && !w.el.classList.contains('worker-down') && w.x > lo && w.x < hi) runOver(w);
         }
         prevX = x;
         if (p >= 1) window.clearInterval(watcher);

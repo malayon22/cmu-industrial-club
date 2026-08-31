@@ -36,7 +36,6 @@
       name: document.getElementById('team-name'),
       bio: document.getElementById('team-bio'),
       count: document.getElementById('team-count'),
-      photoLabel: document.getElementById('team-photo-label'),
       photoSlot: document.querySelector('.team-photo'),
       dots: document.getElementById('team-dots')
     };
@@ -103,9 +102,11 @@
         f.dots.appendChild(dot);
       });
 
-      var slider = document.querySelector('.team-slider');
-      if (slider) {
-        slider.addEventListener('keydown', function (e) {
+      /* bound on the whole section so arrow keys work from the
+         prev/next buttons AND the dots (the dots sit outside .team-slider) */
+      var section = document.getElementById('team');
+      if (section) {
+        section.addEventListener('keydown', function (e) {
           if (e.key === 'ArrowLeft') { e.preventDefault(); go(-1); }
           if (e.key === 'ArrowRight') { e.preventDefault(); go(1); }
         });
