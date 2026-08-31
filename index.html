@@ -91,9 +91,11 @@
 </div>
 
 <!-- ================= BRIDGE + GEAR DIVIDER #1 =================
-     Interactive: hover a tower and a worker pops up to wave,
-     hover the middle and the cables shimmer, click the deck
-     (or just wait) and a truck drives across. -->
+     Interactive: one worker hides at a random spot — sweep the
+     bridge with your mouse to find him (he relocates when you
+     leave); others pop up on their own; cables shimmer on hover;
+     click the deck (or just wait) and a truck drives across.
+     Anyone caught in the road gets run over. -->
 <div class="bridge-divider" aria-hidden="true">
   <!-- meshed gear pair rising behind the deck (injected by JS) -->
   <div class="gear-anchor" data-gear="200" data-fill="#C41230" data-spin="60"
@@ -106,14 +108,13 @@
       <clipPath id="deckClip-1"><rect x="0" y="0" width="1200" height="168"></rect></clipPath>
     </defs>
 
-    <!-- hover / tap zones (transparent, catch all pointer events) -->
-    <rect class="hit hit-tower-l" x="140" y="20" width="190" height="180"></rect>
-    <rect class="hit hit-tower-r" x="880" y="20" width="190" height="180"></rect>
-    <rect class="hit hit-deck" x="340" y="60" width="530" height="140"></rect>
+    <!-- one full-bridge pointer zone: hide-and-seek hover, cable
+         shimmer, and tap-to-send-the-truck -->
+    <rect class="hit hit-deck" x="0" y="0" width="1200" height="200"></rect>
 
     <!-- life on the bridge, clipped so it rises from behind the deck -->
     <g class="scene" clip-path="url(#deckClip-1)">
-      <g class="worker worker--l" transform="translate(238,168) scale(0.8)">
+      <g class="worker worker--seek" transform="translate(238,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -121,9 +122,10 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
-      <g class="worker worker--r" transform="translate(952,168) scale(0.8)">
+      <g class="worker worker--roam" transform="translate(952,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -131,6 +133,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="worker worker--roam" transform="translate(430,168) scale(0.8)">
@@ -141,6 +144,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="worker worker--roam" transform="translate(700,168) scale(0.8)">
@@ -151,6 +155,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="truck" transform="translate(-90,168)">
@@ -349,7 +354,7 @@
     <rect class="hit hit-tower-r" x="880" y="20" width="190" height="180"></rect>
     <rect class="hit hit-deck" x="340" y="60" width="530" height="140"></rect>
     <g class="scene" clip-path="url(#deckClip-2)">
-      <g class="worker worker--l" transform="translate(238,168) scale(0.8)">
+      <g class="worker worker--seek" transform="translate(238,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -357,9 +362,10 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
-      <g class="worker worker--r" transform="translate(952,168) scale(0.8)">
+      <g class="worker worker--roam" transform="translate(952,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -367,6 +373,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="worker worker--roam" transform="translate(430,168) scale(0.8)">
@@ -377,6 +384,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="worker worker--roam" transform="translate(700,168) scale(0.8)">
@@ -387,6 +395,7 @@
           <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
           <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+          <text class="worker-hi" x="14" y="-52" text-anchor="middle">hi!</text>
         </g>
       </g>
       <g class="truck" transform="translate(-90,168)">
@@ -440,23 +449,6 @@
     </g>
   </svg>
 </div>
-
-<!-- ================= NETWORK ================= -->
-<section class="section section--network">
-  <div class="container">
-    <h2 class="h2 h2--sm" data-hover="heading" data-reveal="stamp">OUR NETWORK<span class="accent">.</span></h2>
-    <p class="network-intro">Our network includes professionals and alumni from top industrial and finance firms across the country.</p>
-    <!-- CLUB TODO: swap these placeholders for real partner/firm logos -->
-    <div class="grid-logos" data-reveal-group>
-      <div class="logo-ph">LOGO</div>
-      <div class="logo-ph">LOGO</div>
-      <div class="logo-ph">LOGO</div>
-      <div class="logo-ph">LOGO</div>
-      <div class="logo-ph">LOGO</div>
-      <div class="logo-ph">LOGO</div>
-    </div>
-  </div>
-</section>
 
 <!-- ================= JOIN CTA · scroll-scrub video 3 ================= -->
 <section class="scrub scrub--mid" data-video="assets/video/join.mp4">

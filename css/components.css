@@ -233,19 +233,3 @@
 .photo-slot--dark .photo-ph span,
 .photo-slot--dark .photo-ph em { color: rgba(255, 255, 255, 0.45); }
 
-/* ---------- Network logo placeholders ---------- */
-.logo-ph {
-  height: 80px;
-  border: 1px dashed var(--hairline-dashed);
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  color: var(--muted-2); /* AA contrast on bone, see .photo-ph note */
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-}
-.logo-ph:hover {
-  border-color: var(--red);
-  color: var(--red);
-  transform: translateY(-3px);
-}

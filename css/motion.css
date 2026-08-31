@@ -177,17 +177,18 @@ a:focus-visible .hx .l::after { opacity: 1; }
   transform: translateY(64px);
   transition: transform 380ms cubic-bezier(0.6, 0, 0.8, 0.2); /* duck down fast */
 }
-.hit-tower-l:hover ~ .scene .worker--l .worker-body,
-.hit-tower-r:hover ~ .scene .worker--r .worker-body {
-  transform: translateY(6px);
-  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1); /* springy rise */
-}
 .worker-arm {
   transform-box: fill-box;
   transform-origin: 15% 90%;
 }
-.hit-tower-l:hover ~ .scene .worker--l .worker-arm,
-.hit-tower-r:hover ~ .scene .worker--r .worker-arm {
+
+/* All workers (hide-and-seek + roamers) rise, wave, and say hi via a
+   JS-added .up class — positions are always JS-chosen and random */
+.worker.up .worker-body {
+  transform: translateY(6px);
+  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1); /* springy rise */
+}
+.worker.up .worker-arm {
   animation: wave 700ms ease-in-out 2;
   animation-delay: 480ms; /* wave starts after the rise lands */
 }
@@ -197,15 +198,19 @@ a:focus-visible .hx .l::after { opacity: 1; }
   75% { transform: rotate(16deg); }
 }
 
-/* Roamers: same rise + wave, but driven by a JS-added .up class
-   at random spots along the deck */
-.worker--roam.up .worker-body {
-  transform: translateY(6px);
-  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+/* the little greeting */
+.worker-hi {
+  font-family: var(--font-body), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  fill: var(--red);
+  opacity: 0;
+  transform-box: fill-box;
 }
-.worker--roam.up .worker-arm {
-  animation: wave 700ms ease-in-out 2;
-  animation-delay: 480ms;
+.worker.up .worker-hi { animation: hiPop 320ms ease-out 540ms both; }
+@keyframes hiPop {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: none; }
 }
 
 /* Run over by the truck: yanked below deck instantly, overriding
@@ -252,11 +257,8 @@ a:focus-visible .hx .l::after { opacity: 1; }
 
 .truck { will-change: transform; }
 
-/* Touch devices: hover scenes need a pointer; keep truck (ambient + tap) */
-@media (hover: none) {
-  .bridge-svg .hit-tower-l,
-  .bridge-svg .hit-tower-r { pointer-events: none; }
-}
+/* Touch devices: the roamers + tap-for-truck carry the scene; the
+   hide-and-seek worker simply never gets found without a hover. */
 
 /* ---------- Reduced motion: kill everything kinetic ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -271,9 +273,10 @@ a:focus-visible .hx .l::after { opacity: 1; }
   .marquee-dup { display: none; }
   .scroll-cue::before { animation: none; }
   .worker-body { transform: translateY(64px) !important; transition: none; }
-  .worker-arm, .susp { animation: none !important; }
+  .worker-arm, .susp, .worker-hi { animation: none !important; }
+  .worker-hi { opacity: 0 !important; }
   .boom .boom-core, .boom .boom-sparks, .boom .boom-hat { animation: none !important; opacity: 0 !important; }
-  .btn, .card, .event-row .event-date, .logo-ph, .rule-link::after, .nav-panel { transition: none; }
-  .btn:hover, .card:hover, .logo-ph:hover,
+  .btn, .card, .event-row .event-date, .rule-link::after, .nav-panel { transition: none; }
+  .btn:hover, .card:hover,
   .event-row:hover .event-date, .rule-link:hover::after { transform: none; }
 }

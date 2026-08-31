@@ -34,7 +34,6 @@ Search the code for **`CLUB TODO`** — every placeholder is marked:
 - **Team members** — names, roles, bios, and photo paths live at the top of
   `js/team.js`. Drop headshots in `assets/images/team/` and point each member's
   `photo` field at them; the slideshow updates itself.
-- **Partner logos** — swap the `LOGO` placeholders in the Network section.
 - **Meeting room + time** — cards in the Meetings section.
 - **Links** — TartanConnect join URL, Instagram / LinkedIn / Slack in the footer.
 - **Google Calendar** — paste `CALENDAR_ID` + `API_KEY` into the config block at
@@ -81,8 +80,10 @@ js/nav.js             mobile hamburger
 js/main.js            boots everything
 ```
 
-Fun stuff to know about: hover any big heading letter-by-letter; hover the
-bridge towers (a worker waves) — workers also pop up on their own at random
-spots; click the bridge deck (a truck drives across), and if a worker is still
-up when the truck reaches him, he gets run over with a mini explosion; the
-gears mesh and counter-rotate as you scroll; the red ticker pauses on hover.
+Fun stuff to know about: hover any big heading letter-by-letter; one worker
+hides somewhere random on each bridge — sweep your mouse across the deck to
+find him (he pops up and says hi, and relocates every time you leave); other
+workers pop up on their own; click the bridge deck (a truck drives across),
+and anyone still up when the truck arrives gets run over with a mini
+explosion; the gears mesh and counter-rotate as you scroll; the red ticker
+pauses on hover.

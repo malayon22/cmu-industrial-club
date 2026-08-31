@@ -331,17 +331,6 @@
 .meetings-intro { margin-bottom: 80px; }
 .meetings-intro p { font-size: 18px; line-height: 1.65; color: var(--body-text); margin: 0; text-wrap: pretty; }
 
-/* ---------- Network ---------- */
-.section--network { text-align: center; }
-.section--network .h2 { margin-bottom: 16px; }
-.network-intro {
-  font-size: 17px;
-  color: var(--muted);
-  max-width: 640px;
-  margin: 0 auto 50px;
-  text-wrap: pretty;
-}
-
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--ink);

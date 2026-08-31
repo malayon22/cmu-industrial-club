@@ -224,20 +224,32 @@
       visible = true;
     }
 
-    /* --- worker registry (JS mirrors hover state for collisions) --- */
+    /* --- worker registry: 1 hide-and-seek worker + roamers --- */
     var workers = [];
-    ['l', 'r'].forEach(function (side) {
-      var el = svg.querySelector('.worker--' + side);
-      var hit = svg.querySelector('.hit-tower-' + side);
-      if (!el || !hit) return;
-      var w = { el: el, hit: hit, x: side === 'l' ? 238 : 952, up: false };
-      hit.addEventListener('pointerenter', function () { w.up = true; });
-      hit.addEventListener('pointerleave', function () { w.up = false; });
-      workers.push(w);
-    });
+    var seek = null;
+    var seekEl = svg.querySelector('.worker--seek');
+    if (seekEl) {
+      seek = { el: seekEl, x: 0, up: false, seek: true };
+      workers.push(seek);
+    }
     svg.querySelectorAll('.worker--roam').forEach(function (el) {
       workers.push({ el: el, x: 600, up: false, roam: true });
     });
+
+    function placeWorker(w, x) {
+      w.x = x;
+      w.el.setAttribute('transform', 'translate(' + x.toFixed(0) + ',168) scale(0.8)');
+    }
+
+    /* The seek worker hides somewhere new every time — never where
+       he was last found */
+    function relocateSeek() {
+      if (!seek) return;
+      var nx;
+      do { nx = 120 + Math.random() * 960; } while (Math.abs(nx - seek.x) < 200);
+      placeWorker(seek, nx);
+    }
+    if (seek) { seek.x = 120 + Math.random() * 960; placeWorker(seek, seek.x); }
 
     /* --- roamers pop up at random spots along the deck --- */
     function popRoamer() {
@@ -247,8 +259,7 @@
       });
       if (!free.length) return;
       var w = free[Math.floor(Math.random() * free.length)];
-      w.x = 300 + Math.random() * 600;
-      w.el.setAttribute('transform', 'translate(' + w.x.toFixed(0) + ',168) scale(0.8)');
+      placeWorker(w, 300 + Math.random() * 600);
       w.el.classList.add('up');
       w.up = true;
       window.setTimeout(function () {
@@ -267,9 +278,8 @@
       w.el.classList.add('worker-down'); /* forced below deck, fast */
       window.setTimeout(function () {
         w.el.classList.remove('worker-down');
-        /* pointer may never have left the tower zone: resync so the
-           re-risen worker isn't immune to the next truck */
-        if (w.hit && w.hit.matches && w.hit.matches(':hover')) w.up = true;
+        /* the seek worker respawns somewhere else after an incident */
+        if (w.seek) relocateSeek();
       }, 5000);
       if (!boom || IC.gate.reducedMotion()) return;
       boom.setAttribute('transform', 'translate(' + w.x.toFixed(0) + ',150)');
@@ -331,6 +341,40 @@
 
     var deck = svg.querySelector('.hit-deck');
     if (deck) deck.addEventListener('pointerup', driveTruck);
+
+    /* --- hide-and-seek hover ---
+       Sweep the bridge to find the hidden worker: he pops up when
+       the cursor crosses his spot, stays while you hold, then ducks
+       and relocates the moment you move away. */
+    if (deck && seek) {
+      var duckTimer = null;
+
+      function hideSeek() {
+        if (!seek.up) return;
+        seek.up = false;
+        seek.el.classList.remove('up');
+        if (duckTimer) window.clearTimeout(duckTimer);
+        /* relocate only after he's fully below the deck */
+        duckTimer = window.setTimeout(relocateSeek, 420);
+      }
+
+      deck.addEventListener('pointermove', function (e) {
+        if (IC.gate.reducedMotion()) return;
+        if (seek.el.classList.contains('worker-down')) return;
+        var r = svg.getBoundingClientRect();
+        if (!r.width) return;
+        var vx = (e.clientX - r.left) / r.width * 1200;
+        var near = Math.abs(vx - seek.x) < 90;
+        if (near && !seek.up) {
+          if (duckTimer) { window.clearTimeout(duckTimer); duckTimer = null; }
+          seek.up = true;
+          seek.el.classList.add('up');
+        } else if (!near && seek.up) {
+          hideSeek();
+        }
+      });
+      deck.addEventListener('pointerleave', hideSeek);
+    }
   }
 
   /* ---------------- bootstrap ---------------- */
