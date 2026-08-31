@@ -241,25 +241,38 @@
       w.el.setAttribute('transform', 'translate(' + x.toFixed(0) + ',168) scale(0.8)');
     }
 
+    /* Workers only ever stand in the gaps BETWEEN the suspender bars
+       (bars at x=282..918 every ~80, towers at ~200/1000) — midpoints
+       of the ten gaps, with a little jitter that keeps clear of the bars */
+    var GAP_SLOTS = [245, 321, 401, 480, 560, 640, 719, 799, 878, 955];
+    function randomSlot(awayFromX) {
+      var choices = GAP_SLOTS.filter(function (s) { return Math.abs(s - awayFromX) > 60; });
+      var s = choices[Math.floor(Math.random() * choices.length)];
+      return s + (Math.random() * 20 - 10);
+    }
+
     /* The seek worker hides somewhere new every time — never where
        he was last found */
     function relocateSeek() {
       if (!seek) return;
-      var nx;
-      do { nx = 120 + Math.random() * 960; } while (Math.abs(nx - seek.x) < 200);
-      placeWorker(seek, nx);
+      placeWorker(seek, randomSlot(seek.x));
     }
-    if (seek) { seek.x = 120 + Math.random() * 960; placeWorker(seek, seek.x); }
+    if (seek) placeWorker(seek, randomSlot(-999));
 
-    /* --- roamers pop up at random spots along the deck --- */
+    /* --- roamers pop up at random spots along the deck ---
+       Paused entirely while the visitor's mouse is on the bridge (the
+       hide-and-seek game owns that moment), and never more than one
+       worker up at a time. */
+    var hovering = false;
     function popRoamer() {
-      if (IC.gate.reducedMotion() || !visible || document.visibilityState !== 'visible') return;
+      if (IC.gate.reducedMotion() || !visible || hovering || document.visibilityState !== 'visible') return;
+      if (workers.some(function (w) { return w.up; })) return; /* one at a time */
       var free = workers.filter(function (w) {
-        return w.roam && !w.up && !w.el.classList.contains('worker-down');
+        return w.roam && !w.el.classList.contains('worker-down');
       });
       if (!free.length) return;
       var w = free[Math.floor(Math.random() * free.length)];
-      placeWorker(w, 300 + Math.random() * 600);
+      placeWorker(w, randomSlot(w.x));
       w.el.classList.add('up');
       w.up = true;
       window.setTimeout(function () {
@@ -340,7 +353,21 @@
     IC.gate.onChange(armAmbient); /* reduced-motion turned off mid-session */
 
     var deck = svg.querySelector('.hit-deck');
-    if (deck) deck.addEventListener('pointerup', driveTruck);
+    if (deck) {
+      deck.addEventListener('pointerup', driveTruck);
+      /* mouse on the bridge => ambient roamers stand down immediately;
+         only the hide-and-seek worker appears, right where the mouse is */
+      deck.addEventListener('pointerenter', function () {
+        hovering = true;
+        workers.forEach(function (w) {
+          if (w.roam && w.up) {
+            w.el.classList.remove('up');
+            w.up = false;
+          }
+        });
+      });
+      deck.addEventListener('pointerleave', function () { hovering = false; });
+    }
 
     /* --- hide-and-seek hover ---
        Sweep the bridge to find the hidden worker: he pops up when
