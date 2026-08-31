@@ -204,11 +204,16 @@
     }
   }
 
-  /* ---------------- bridge scenes ---------------- */
+  /* ---------------- bridge scenes ----------------
+     Two tower workers (rise on hover), two roamers that pop up at
+     random spots on their own, an ambient truck — and if the truck
+     reaches a worker who's still up, he gets run over: mini
+     explosion, hard hat flies, worker sheepishly returns later. */
   function initBridgeScene(divider) {
     var svg = divider.querySelector('.bridge-svg');
     if (!svg) return;
     var truck = svg.querySelector('.truck');
+    var boom = svg.querySelector('.boom');
     var visible = false;
 
     if ('IntersectionObserver' in window) {
@@ -219,20 +224,87 @@
       visible = true;
     }
 
+    /* --- worker registry (JS mirrors hover state for collisions) --- */
+    var workers = [];
+    ['l', 'r'].forEach(function (side) {
+      var el = svg.querySelector('.worker--' + side);
+      var hit = svg.querySelector('.hit-tower-' + side);
+      if (!el || !hit) return;
+      var w = { el: el, x: side === 'l' ? 238 : 952, up: false };
+      hit.addEventListener('pointerenter', function () { w.up = true; });
+      hit.addEventListener('pointerleave', function () { w.up = false; });
+      workers.push(w);
+    });
+    svg.querySelectorAll('.worker--roam').forEach(function (el) {
+      workers.push({ el: el, x: 600, up: false, roam: true });
+    });
+
+    /* --- roamers pop up at random spots along the deck --- */
+    function popRoamer() {
+      if (IC.gate.reducedMotion() || !visible || document.visibilityState !== 'visible') return;
+      var free = workers.filter(function (w) {
+        return w.roam && !w.up && !w.el.classList.contains('worker-down');
+      });
+      if (!free.length) return;
+      var w = free[Math.floor(Math.random() * free.length)];
+      w.x = 300 + Math.random() * 600;
+      w.el.setAttribute('transform', 'translate(' + w.x.toFixed(0) + ',168) scale(0.8)');
+      w.el.classList.add('up');
+      w.up = true;
+      window.setTimeout(function () {
+        w.el.classList.remove('up');
+        w.up = false;
+      }, 2600 + Math.random() * 1800);
+    }
+    (function roamLoop() {
+      window.setTimeout(function () { popRoamer(); roamLoop(); }, 5000 + Math.random() * 9000);
+    })();
+
+    /* --- the incident --- */
+    function runOver(w) {
+      w.up = false;
+      w.el.classList.remove('up');
+      w.el.classList.add('worker-down'); /* forced below deck, fast */
+      window.setTimeout(function () { w.el.classList.remove('worker-down'); }, 5000);
+      if (!boom || IC.gate.reducedMotion()) return;
+      boom.setAttribute('transform', 'translate(' + w.x.toFixed(0) + ',150)');
+      boom.classList.remove('go');
+      boom.getBoundingClientRect(); /* restart the CSS animations */
+      boom.classList.add('go');
+    }
+
     function driveTruck() {
       if (!truck || IC.gate.reducedMotion()) return;
       if (truck.getAnimations && truck.getAnimations().length) return;
       var dir = Math.random() < 0.5 ? 1 : -1; /* sometimes drives the other way */
       var from = dir > 0 ? -90 : 1290;
       var to = dir > 0 ? 1290 : -90;
+      var duration = 7000;
       truck.style.transform = 'translate(' + from + 'px, 168px)' + (dir < 0 ? ' scale(-1, 1)' : '');
       truck.animate(
         [
           { transform: 'translate(' + from + 'px, 168px)' + (dir < 0 ? ' scale(-1,1)' : '') },
           { transform: 'translate(' + to + 'px, 168px)' + (dir < 0 ? ' scale(-1,1)' : '') }
         ],
-        { duration: 7000, easing: 'linear' }
+        { duration: duration, easing: 'linear' }
       );
+      /* watch for workers in the roadway (truck is ~47 units long).
+         Sweep-based: catches workers even if the timer is throttled
+         and the truck jumped past them between samples. */
+      var t0 = performance.now();
+      var prevX = from;
+      var watcher = window.setInterval(function () {
+        var p = Math.min(1, (performance.now() - t0) / duration);
+        var x = from + (to - from) * p;
+        var lo = Math.min(prevX, x) - 55;
+        var hi = Math.max(prevX, x) + 55;
+        for (var i = 0; i < workers.length; i++) {
+          var w = workers[i];
+          if (w.up && w.x > lo && w.x < hi) runOver(w);
+        }
+        prevX = x;
+        if (p >= 1) window.clearInterval(watcher);
+      }, 80);
     }
 
     function schedule() {

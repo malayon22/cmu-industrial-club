@@ -8,6 +8,7 @@
     if (IC.interactions) IC.interactions.init();
     if (IC.scrub) IC.scrub.init();
     if (IC.calendar) IC.calendar.init();
+    if (IC.team) IC.team.init();
     if (IC.nav) IC.nav.init();
     if (IC.scroll) IC.scroll.start();
   });

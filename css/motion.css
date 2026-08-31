@@ -197,6 +197,50 @@ a:focus-visible .hx .l::after { opacity: 1; }
   75% { transform: rotate(16deg); }
 }
 
+/* Roamers: same rise + wave, but driven by a JS-added .up class
+   at random spots along the deck */
+.worker--roam.up .worker-body {
+  transform: translateY(6px);
+  transition: transform 480ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.worker--roam.up .worker-arm {
+  animation: wave 700ms ease-in-out 2;
+  animation-delay: 480ms;
+}
+
+/* Run over by the truck: yanked below deck instantly, overriding
+   both the roamer .up state and the tower :hover rise */
+.worker.worker-down .worker-body {
+  transform: translateY(64px) !important;
+  transition: transform 130ms ease-in !important;
+}
+
+/* Mini explosion: red burst + sparks + the hard hat flies off */
+.boom { pointer-events: none; }
+.boom .boom-core,
+.boom .boom-sparks,
+.boom .boom-hat {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+.boom.go .boom-core { animation: boomCore 480ms ease-out; }
+.boom.go .boom-sparks { animation: boomSparks 560ms ease-out; }
+.boom.go .boom-hat { animation: hatFly 780ms cubic-bezier(0.2, 0.6, 0.4, 1); }
+@keyframes boomCore {
+  0% { opacity: 1; transform: scale(0.25); }
+  100% { opacity: 0; transform: scale(2); }
+}
+@keyframes boomSparks {
+  0% { opacity: 1; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(1.9); }
+}
+@keyframes hatFly {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-64px) rotate(320deg); }
+}
+
 .susp { --si: 0; }
 .hit-deck:hover ~ .structure .susp {
   animation: cableShimmer 700ms ease-in-out 1;
@@ -228,6 +272,7 @@ a:focus-visible .hx .l::after { opacity: 1; }
   .scroll-cue::before { animation: none; }
   .worker-body { transform: translateY(64px) !important; transition: none; }
   .worker-arm, .susp { animation: none !important; }
+  .boom .boom-core, .boom .boom-sparks, .boom .boom-hat { animation: none !important; opacity: 0 !important; }
   .btn, .card, .event-row .event-date, .logo-ph, .rule-link::after, .nav-panel { transition: none; }
   .btn:hover, .card:hover, .logo-ph:hover,
   .event-row:hover .event-date, .rule-link:hover::after { transform: none; }

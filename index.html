@@ -24,6 +24,7 @@
   <script defer src="js/interactions.js"></script>
   <script defer src="js/scrub.js"></script>
   <script defer src="js/calendar.js"></script>
+  <script defer src="js/team.js"></script>
   <script defer src="js/nav.js"></script>
   <script defer src="js/main.js"></script>
 </head>
@@ -40,7 +41,7 @@
   <div class="nav-spacer"></div>
   <div class="nav-panel" id="nav-panel">
     <div class="nav-links">
-      <a class="nav-link" href="#what-we-do">WHAT WE DO</a>
+      <a class="nav-link" href="#team">OUR TEAM</a>
       <a class="nav-link" href="#calendar">EVENTS</a>
       <a class="nav-link" href="#meetings">MEETINGS</a>
       <a class="nav-link" href="#contact">CONTACT</a>
@@ -73,7 +74,7 @@
       </h1>
       <div class="hero-kicker">OFFICIAL CLUB OF CARNEGIE MELLON UNIVERSITY</div>
       <div class="hero-buttons">
-        <a class="btn btn-outline" href="#what-we-do">WHAT WE DO</a>
+        <a class="btn btn-outline" href="#team">OUR TEAM</a>
         <a class="btn btn-outline" href="#calendar">EVENTS</a>
         <a class="btn btn-filled" href="#meetings">COME TO A MEETING</a>
       </div>
@@ -112,7 +113,7 @@
 
     <!-- life on the bridge, clipped so it rises from behind the deck -->
     <g class="scene" clip-path="url(#deckClip-1)">
-      <g class="worker worker--l" transform="translate(238,168)">
+      <g class="worker worker--l" transform="translate(238,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -122,7 +123,27 @@
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
         </g>
       </g>
-      <g class="worker worker--r" transform="translate(952,168)">
+      <g class="worker worker--r" transform="translate(952,168) scale(0.8)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--roam" transform="translate(430,168) scale(0.8)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--roam" transform="translate(700,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -166,6 +187,23 @@
         <line class="susp" style="--si:8" x1="918" y1="82" x2="918" y2="168"></line>
       </g>
     </g>
+
+    <!-- mini explosion for truck-vs-worker incidents (positioned by JS) -->
+    <g class="boom" transform="translate(-200,150)">
+      <circle class="boom-core" cx="0" cy="0" r="15" fill="#C41230"></circle>
+      <g class="boom-sparks" stroke="#141414" stroke-width="4" stroke-linecap="round">
+        <line x1="0" y1="-12" x2="0" y2="-27"></line>
+        <line x1="11" y1="-7" x2="23" y2="-15"></line>
+        <line x1="12" y1="7" x2="26" y2="13"></line>
+        <line x1="-11" y1="-7" x2="-23" y2="-15"></line>
+        <line x1="-12" y1="7" x2="-26" y2="13"></line>
+        <line x1="0" y1="13" x2="0" y2="27"></line>
+      </g>
+      <g class="boom-hat">
+        <rect x="-8" y="-7" width="16" height="7" rx="3" fill="#C41230"></rect>
+        <rect x="-11" y="-1" width="22" height="3" fill="#C41230"></rect>
+      </g>
+    </g>
   </svg>
 </div>
 
@@ -183,59 +221,37 @@
         <div class="red-rule" data-reveal="rule"></div>
         <h2 class="h2" style="font-size:56px" data-hover="heading" data-reveal="stamp">OUR MISSION<span class="accent">.</span></h2>
         <p>The Industrial Club prepares Carnegie Mellon students for careers and investing in the industrial economy — manufacturing, aerospace, transportation, energy, and infrastructure — through hands-on analysis, site visits, and connections with people who build things.</p>
-        <a class="rule-link" href="#what-we-do">READ MORE ↓</a>
+        <a class="rule-link" href="#team">MEET THE TEAM ↓</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= WHAT WE DO ================= -->
-<section class="section section--dark" id="what-we-do">
+<!-- ================= OUR TEAM · click-through slideshow ================= -->
+<section class="section section--dark" id="team">
   <div class="gear-wm" data-gear="540" data-fill="#ffffff" style="right:-150px;top:-130px;opacity:.08"></div>
   <div class="container">
-    <h2 class="h2" style="margin-bottom:70px" data-hover="heading-dark" data-reveal="stamp">WHAT WE DO<span class="accent">.</span></h2>
-    <div class="grid-wwd">
-      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — career workshop">
-        <div class="photo-ph"><span>CAREER WORKSHOP PHOTO</span><em>coming soon</em></div>
+    <h2 class="h2" data-hover="heading-dark" data-reveal="stamp">OUR TEAM<span class="accent">.</span></h2>
+    <p class="team-intro">The people building the club. Click through to meet everyone.</p>
+    <!-- CLUB TODO: real names, roles, bios, and photos live in js/team.js -->
+    <div class="team-slider">
+      <button class="team-arrow team-prev" type="button" aria-label="Previous team member">&#8592;</button>
+      <div class="team-stage" aria-live="polite">
+        <div class="team-card" id="team-card">
+          <div class="team-photo photo-slot photo-slot--dark">
+            <div class="photo-ph"><span id="team-photo-label">TEAM PHOTO</span><em>coming soon</em></div>
+          </div>
+          <div class="team-info">
+            <div class="eyebrow" id="team-role">ROLE</div>
+            <div class="team-name" id="team-name">NAME</div>
+            <p class="team-bio" id="team-bio"></p>
+            <div class="team-count" id="team-count"></div>
+          </div>
+        </div>
       </div>
-      <div class="wwd-block">
-        <h3 data-hover="heading-dark" data-reveal="stamp">CAREER EXPLORATION &amp; INTERVIEW PREP</h3>
-        <ul data-reveal-group>
-          <li>Map career paths across industrials — operations, corporate finance, equity research, and industrial tech.</li>
-          <li>Run workshops and mock interviews so members walk into recruiting prepared.</li>
-        </ul>
-      </div>
-      <div class="wwd-block">
-        <h3 data-hover="heading-dark" data-reveal="stamp">SECTOR DEEP DIVES</h3>
-        <ul data-reveal-group>
-          <li>Break down current events moving industrial markets — from reshoring to defense budgets to freight cycles.</li>
-          <li>Study the history of the sector to understand the forces behind macro trends.</li>
-        </ul>
-      </div>
-      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — club meeting">
-        <div class="photo-ph"><span>MEETING PHOTO</span><em>coming soon</em></div>
-      </div>
-      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — site visit">
-        <div class="photo-ph"><span>SITE VISIT PHOTO</span><em>coming soon</em></div>
-      </div>
-      <div class="wwd-block">
-        <h3 data-hover="heading-dark" data-reveal="stamp">SITE VISITS &amp; TOURS</h3>
-        <ul data-reveal-group>
-          <li>Get on the floor — tours of plants, ports, and facilities around Pittsburgh.</li>
-          <li>See how the concepts from meetings play out in real operations.</li>
-        </ul>
-      </div>
-      <div class="wwd-block">
-        <h3 data-hover="heading-dark" data-reveal="stamp">FINANCIAL MODELING SKILLS</h3>
-        <ul data-reveal-group>
-          <li>Build models for industrial businesses — unit economics, capex cycles, and valuation.</li>
-          <li>Practice through case studies with hands-on modeling experience.</li>
-        </ul>
-      </div>
-      <div class="photo-slot photo-slot--360 photo-slot--dark" data-reveal="plate" role="img" aria-label="Photo coming soon — modeling session">
-        <div class="photo-ph"><span>MODELING SESSION PHOTO</span><em>coming soon</em></div>
-      </div>
+      <button class="team-arrow team-next" type="button" aria-label="Next team member">&#8594;</button>
     </div>
+    <div class="team-dots" id="team-dots"></div>
   </div>
 </section>
 
@@ -333,7 +349,7 @@
     <rect class="hit hit-tower-r" x="880" y="20" width="190" height="180"></rect>
     <rect class="hit hit-deck" x="340" y="60" width="530" height="140"></rect>
     <g class="scene" clip-path="url(#deckClip-2)">
-      <g class="worker worker--l" transform="translate(238,168)">
+      <g class="worker worker--l" transform="translate(238,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -343,7 +359,27 @@
           <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
         </g>
       </g>
-      <g class="worker worker--r" transform="translate(952,168)">
+      <g class="worker worker--r" transform="translate(952,168) scale(0.8)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--roam" transform="translate(430,168) scale(0.8)">
+        <g class="worker-body">
+          <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
+          <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
+          <rect x="-10" y="-26" width="20" height="26" rx="2" fill="#141414"></rect>
+          <circle cx="0" cy="-32" r="8" fill="#141414"></circle>
+          <rect x="-10" y="-45" width="20" height="8" rx="3" fill="#C41230"></rect>
+          <rect x="-13" y="-38" width="26" height="3" fill="#C41230"></rect>
+        </g>
+      </g>
+      <g class="worker worker--roam" transform="translate(700,168) scale(0.8)">
         <g class="worker-body">
           <rect x="-16" y="-24" width="5" height="14" rx="2" fill="#141414"></rect>
           <g class="worker-arm"><rect x="11" y="-40" width="5" height="19" rx="2" fill="#141414"></rect></g>
@@ -383,6 +419,23 @@
         <line class="susp" style="--si:6" x1="759" y1="110" x2="759" y2="168"></line>
         <line class="susp" style="--si:7" x1="839" y1="98" x2="839" y2="168"></line>
         <line class="susp" style="--si:8" x1="918" y1="82" x2="918" y2="168"></line>
+      </g>
+    </g>
+
+    <!-- mini explosion for truck-vs-worker incidents (positioned by JS) -->
+    <g class="boom" transform="translate(-200,150)">
+      <circle class="boom-core" cx="0" cy="0" r="15" fill="#C41230"></circle>
+      <g class="boom-sparks" stroke="#141414" stroke-width="4" stroke-linecap="round">
+        <line x1="0" y1="-12" x2="0" y2="-27"></line>
+        <line x1="11" y1="-7" x2="23" y2="-15"></line>
+        <line x1="12" y1="7" x2="26" y2="13"></line>
+        <line x1="-11" y1="-7" x2="-23" y2="-15"></line>
+        <line x1="-12" y1="7" x2="-26" y2="13"></line>
+        <line x1="0" y1="13" x2="0" y2="27"></line>
+      </g>
+      <g class="boom-hat">
+        <rect x="-8" y="-7" width="16" height="7" rx="3" fill="#C41230"></rect>
+        <rect x="-11" y="-1" width="22" height="3" fill="#C41230"></rect>
       </g>
     </g>
   </svg>
@@ -469,11 +522,11 @@
       <div>5000 Forbes Avenue, Pittsburgh, PA 15213 · industrialclub@andrew.cmu.edu</div>
     </div>
     <div class="nav-spacer"></div>
-    <!-- CLUB TODO: real Instagram / LinkedIn / Slack URLs -->
+    <!-- CLUB TODO: real Instagram / LinkedIn URLs + the club's TartanConnect page -->
     <div class="footer-links">
       <a href="#top">INSTAGRAM</a>
       <a href="#top">LINKEDIN</a>
-      <a href="#top">SLACK</a>
+      <a href="https://tartanconnect.cmu.edu">TARTANCONNECT</a>
     </div>
   </div>
 </footer>

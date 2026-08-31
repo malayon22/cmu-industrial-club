@@ -31,6 +31,9 @@ Search the code for **`CLUB TODO`** — every placeholder is marked:
 - **Photos** — each gray "coming soon" frame is a `.photo-slot`. Replace the
   inner `.photo-ph` div with `<img src="assets/images/your-photo.jpg" alt="...">`
   (keep the `photo-slot` wrapper — it handles sizing and the reveal animation).
+- **Team members** — names, roles, bios, and photo paths live at the top of
+  `js/team.js`. Drop headshots in `assets/images/team/` and point each member's
+  `photo` field at them; the slideshow updates itself.
 - **Partner logos** — swap the `LOGO` placeholders in the Network section.
 - **Meeting room + time** — cards in the Meetings section.
 - **Links** — TartanConnect join URL, Instagram / LinkedIn / Slack in the footer.
@@ -73,10 +76,13 @@ js/motion-gate.js     decides when motion features turn off (mobile etc.)
 js/interactions.js    per-letter hover, scroll reveals, gears, bridge scenes
 js/scrub.js           scroll-driven video engine
 js/calendar.js        Google Calendar sync + sample fallback  ← config lives here
+js/team.js            Our Team slideshow  ← member list lives here
 js/nav.js             mobile hamburger
 js/main.js            boots everything
 ```
 
 Fun stuff to know about: hover any big heading letter-by-letter; hover the
-bridge towers (a worker waves); click the bridge deck (a truck drives across);
-the gears mesh and counter-rotate as you scroll; the red ticker pauses on hover.
+bridge towers (a worker waves) — workers also pop up on their own at random
+spots; click the bridge deck (a truck drives across), and if a worker is still
+up when the truck reaches him, he gets run over with a mini explosion; the
+gears mesh and counter-rotate as you scroll; the red ticker pauses on hover.

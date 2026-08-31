@@ -87,11 +87,10 @@
 
 .hero-at {
   font-family: var(--font-display);
-  text-transform: lowercase;
   color: var(--red);
   font-size: clamp(20px, 2.2vw, 34px);
   letter-spacing: 0.16em;
-  margin-top: 14px;
+  margin-top: 4px; /* sits tight under CLUB. */
 }
 
 .hero-kicker {
@@ -201,20 +200,89 @@
 }
 .section--dark .h2 { color: #fff; }
 
-.wwd-block h3 {
-  font-family: var(--font-display);
-  font-size: 30px;
-  margin: 0 0 16px;
-  letter-spacing: 0.02em;
-}
-.wwd-block ul {
-  margin: 0;
-  padding-left: 20px;
-  display: grid;
-  gap: 12px;
-  font-size: 16px;
-  line-height: 1.6;
+/* ---------- Our Team slideshow ---------- */
+.team-intro {
+  font-size: 17px;
   color: var(--on-dark-body);
+  margin: 0 0 46px;
+  max-width: 640px;
+  text-wrap: pretty;
+}
+.team-slider {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+}
+.team-arrow {
+  background: none;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  width: 54px;
+  height: 54px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+.team-arrow:hover { background: #fff; color: var(--ink); transform: translateY(-2px); }
+.team-stage { overflow: hidden; }
+.team-card {
+  display: grid;
+  grid-template-columns: 380px minmax(0, 1fr);
+  gap: 46px;
+  align-items: center;
+  transition: opacity 190ms ease, transform 190ms ease;
+}
+.team-card.team-switching {
+  opacity: 0;
+  transform: translateX(var(--slide-x, -22px));
+  transition: opacity 190ms ease, transform 190ms ease;
+}
+.team-photo { height: 380px; min-width: 0; overflow: hidden; position: relative; }
+.team-name {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 44px);
+  margin: 8px 0 14px;
+  letter-spacing: 0.01em;
+}
+.team-bio {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--on-dark-body);
+  margin: 0 0 18px;
+  max-width: 560px;
+  text-wrap: pretty;
+}
+.team-count {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.team-dots {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 36px;
+}
+.team-dot {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+.team-dot:hover { transform: scale(1.25); }
+.team-dot.active { background: var(--red); }
+
+@media (max-width: 900px) {
+  .team-slider { gap: 12px; }
+  .team-card { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .team-photo { height: 280px; }
+  .team-arrow { width: 44px; height: 44px; font-size: 18px; }
 }
 
 /* ---------- Mission ---------- */
@@ -299,7 +367,6 @@
 }
 .footer-id .brand em {
   font-style: normal;
-  text-transform: lowercase;
   color: var(--red);
   font-size: 13px;
   letter-spacing: 0.1em;

@@ -48,7 +48,7 @@
   font-size: 13px;
   letter-spacing: 0.1em;
   color: var(--red);
-  text-transform: lowercase;
+  margin-left: -4px; /* tucked in close to the wordmark */
 }
 
 .nav-spacer { flex: 1; }
@@ -103,14 +103,6 @@
   align-items: center;
 }
 
-/* What-we-do alternating grid */
-.grid-wwd {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 70px 80px;
-  align-items: center;
-}
-
 /* Meeting cards / network logos */
 .grid-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px; }
 .grid-logos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 22px; max-width: 1200px; margin: 0 auto; }
@@ -123,7 +115,6 @@
 }
 .photo-slot--420 { height: 420px; }
 .photo-slot--400 { height: 400px; }
-.photo-slot--360 { height: 360px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 980px) {
@@ -165,12 +156,10 @@
 
 @media (max-width: 900px) {
   :root { --section-pad: 72px; }
-  .grid-2, .grid-wwd { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .grid-2 { grid-template-columns: minmax(0, 1fr); gap: 40px; }
   .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .grid-logos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  /* Photo-first reading order when the alternating grid stacks */
   .photo-slot--420, .photo-slot--400 { height: 320px; }
-  .photo-slot--360 { height: 280px; }
 }
 
 @media (max-width: 640px) {
