@@ -1,8 +1,21 @@
 # Industrial Club at CMU — Website
 
+**Live at: https://malayon22.github.io/cmu-industrial-club/**
+
 Single-page site for the Carnegie Mellon Industrial Club. Plain HTML/CSS/JS —
 **no build step, no dependencies**. Open `index.html` through any static server
 (or GitHub Pages) and it works.
+
+## Making edits after launch
+
+The live site IS this git repo. Edit files, then:
+
+```bash
+git add -A ; git commit -m "describe the change" ; git push
+```
+
+GitHub Pages redeploys automatically in ~1 minute. Nothing else to do. To
+undo a bad change: `git revert HEAD` and push again.
 
 ## Run it locally
 
@@ -20,9 +33,25 @@ Pages and every real static host.
 
 ## Deploy (GitHub Pages)
 
-Push this folder to a GitHub repo → Settings → Pages → deploy from branch.
-Everything is relative-path so it works from `https://<org>.github.io/<repo>/`.
-`.nojekyll` is already there so Pages doesn't mangle anything.
+Already done: repo `malayon22/cmu-industrial-club`, Pages serving branch
+`master` at the URL above. Everything is relative-path so it works from
+`https://<user>.github.io/<repo>/`; `.nojekyll` keeps Pages from mangling files.
+
+## Custom domain (carnegiemellonindustrialclub.com)
+
+After buying the domain (Porkbun), do these once:
+
+1. In Porkbun → the domain → DNS, delete any parked defaults and add:
+   - `A` record, host blank (apex) → `185.199.108.153`
+   - `A` record, host blank (apex) → `185.199.109.153`
+   - `A` record, host blank (apex) → `185.199.110.153`
+   - `A` record, host blank (apex) → `185.199.111.153`
+   - `CNAME` record, host `www` → `malayon22.github.io`
+2. GitHub repo → Settings → Pages → Custom domain → enter
+   `carnegiemellonindustrialclub.com` → Save, then tick **Enforce HTTPS**
+   once the certificate is issued (can take ~15 min after DNS propagates).
+
+The github.io URL keeps working as a backup either way.
 
 ## Things the club still needs to fill in
 
