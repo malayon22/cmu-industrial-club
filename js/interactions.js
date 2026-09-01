@@ -204,6 +204,33 @@
     }
   }
 
+  /* Three vehicle silhouettes — same flat style and scale, visibly
+     different. One is picked at random for every crossing. */
+  var VEHICLES = [
+    /* box truck, red cab */
+    '<rect x="0" y="-18" width="34" height="12" rx="2" fill="#141414"></rect>' +
+    '<rect x="34" y="-15" width="13" height="9" rx="2" fill="#C41230"></rect>' +
+    '<circle cx="9" cy="-5" r="5" fill="#141414"></circle>' +
+    '<circle cx="39" cy="-5" r="5" fill="#141414"></circle>',
+    /* flatbed hauling a red gear */
+    '<rect x="0" y="-10" width="36" height="4" rx="1" fill="#141414"></rect>' +
+    '<rect x="36" y="-17" width="12" height="11" rx="2" fill="#141414"></rect>' +
+    '<g fill="#C41230"><circle cx="16" cy="-16" r="6"></circle>' +
+    '<rect x="14" y="-26" width="4" height="4" rx="1"></rect>' +
+    '<rect x="6" y="-18" width="4" height="4" rx="1"></rect>' +
+    '<rect x="22" y="-18" width="4" height="4" rx="1"></rect></g>' +
+    '<circle cx="16" cy="-16" r="2.5" fill="#F7F5F2"></circle>' +
+    '<circle cx="8" cy="-5" r="5" fill="#141414"></circle>' +
+    '<circle cx="26" cy="-5" r="5" fill="#141414"></circle>' +
+    '<circle cx="42" cy="-5" r="5" fill="#141414"></circle>',
+    /* little red pickup */
+    '<rect x="0" y="-12" width="22" height="7" rx="1" fill="#C41230"></rect>' +
+    '<rect x="20" y="-19" width="16" height="14" rx="3" fill="#C41230"></rect>' +
+    '<rect x="23" y="-16" width="8" height="5" rx="1" fill="#F7F5F2"></rect>' +
+    '<circle cx="8" cy="-5" r="5" fill="#141414"></circle>' +
+    '<circle cx="34" cy="-5" r="5" fill="#141414"></circle>'
+  ];
+
   /* ---------------- bridge scenes ----------------
      Two tower workers (rise on hover), two roamers that pop up at
      random spots on their own, an ambient truck — and if the truck
@@ -215,10 +242,17 @@
     var truck = svg.querySelector('.truck');
     var boom = svg.querySelector('.boom');
     var visible = false;
+    var firstSeen = false;
 
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (entries) {
         visible = entries[0].isIntersecting;
+        /* first time the bridge scrolls into view, send a vehicle
+           across shortly after — nobody waits 30s to see one */
+        if (visible && !firstSeen) {
+          firstSeen = true;
+          window.setTimeout(function () { if (visible) driveTruck(); }, 2500 + Math.random() * 2500);
+        }
       }, { threshold: 0.2 }).observe(divider);
     } else {
       visible = true;
@@ -304,6 +338,7 @@
     function driveTruck() {
       if (!truck || IC.gate.reducedMotion()) return;
       if (truck.getAnimations && truck.getAnimations().length) return;
+      truck.innerHTML = VEHICLES[Math.floor(Math.random() * VEHICLES.length)];
       var dir = Math.random() < 0.5 ? 1 : -1; /* sometimes drives the other way */
       var from = dir > 0 ? -90 : 1290;
       var to = dir > 0 ? 1290 : -90;
@@ -337,7 +372,7 @@
     }
 
     function schedule() {
-      var delay = 20000 + Math.random() * 20000; /* every 20-40s */
+      var delay = 14000 + Math.random() * 14000; /* every 14-28s */
       window.setTimeout(function () {
         if (document.visibilityState === 'visible' && visible) driveTruck();
         schedule();
