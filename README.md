@@ -66,10 +66,10 @@ The github.io URL keeps working as a backup either way.
   (footer) point to the club's real pages. There's no club LinkedIn yet, so
   that footer link was removed rather than left dead; add it back in
   `index.html` if the club creates one.
-- **Photos** — each gray "coming soon" frame is a `.photo-slot`. Replace the
-  inner `.photo-ph` div with `<img src="assets/images/your-photo.jpg" alt="...">`
-  (keep the `photo-slot` wrapper — it handles sizing and the reveal animation).
-  Search the code for **`CLUB TODO`** to find the remaining photo slots.
+- **Photos** ✓ done — both page photo slots show real club-fair shots
+  (`assets/images/club-fair.jpg` and `club-fair-2.jpg`). To swap one, replace
+  the `<img>` inside the `.photo-slot` (keep the wrapper — it handles sizing
+  and the reveal animation).
 - **Partner / sponsor content** — if the club lines up partners or sponsors,
   there's no dedicated section for them yet; add one if needed.
 - **Google Calendar** — paste `CALENDAR_ID` + `API_KEY` into the config block at
