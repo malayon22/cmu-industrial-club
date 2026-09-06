@@ -13,9 +13,9 @@
 
   var MEMBERS = [
     { name: 'SEBASTIAN REICHELT', role: 'PRESIDENT',
-      bio: 'Sets the direction of the club and runs the Tuesday general body meetings — picking the topics, bringing in speakers, and making sure every week ships something worth showing up for.', photo: 'assets/images/team/sebastian.jpg' },
+      bio: 'Sets the direction of the club and runs the Tuesday general body meetings. He picks the topics, brings in the speakers, and makes sure every week is worth showing up for.', photo: 'assets/images/team/sebastian.jpg' },
     { name: 'BEHRAM DARUWALLA', role: 'VICE PRESIDENT',
-      bio: 'Runs the operations side of the club — rooms, scheduling, site visits, and events. The gap between a good idea and a Tuesday meeting that actually happens is his job.', photo: 'assets/images/team/behram.jpg' },
+      bio: 'Runs the operations side of the club: rooms, scheduling, site visits, and events. The gap between a good idea and a Tuesday meeting that actually happens is his job.', photo: 'assets/images/team/behram.jpg' },
     { name: 'MICHAEL ALAYON', role: 'PRESIDENT OF FINANCE',
       bio: "Runs the club's numbers: the budget, the modeling case studies, and the financial-analysis side of every deep dive into manufacturing, supply chains, and logistics.", photo: 'assets/images/team/michael.jpg' }
   ];
