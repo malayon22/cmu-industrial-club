@@ -1,0 +1,95 @@
+{
+  "updated": "2026-09-06T19:42:33.253Z",
+  "events": [
+    {
+      "epochMs": 1788904800000,
+      "day": "08",
+      "month": "SEP",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1789509600000,
+      "day": "15",
+      "month": "SEP",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1790114400000,
+      "day": "22",
+      "month": "SEP",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1790719200000,
+      "day": "29",
+      "month": "SEP",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1791324000000,
+      "day": "06",
+      "month": "OCT",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1791928800000,
+      "day": "13",
+      "month": "OCT",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1792533600000,
+      "day": "20",
+      "month": "OCT",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1793138400000,
+      "day": "27",
+      "month": "OCT",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1793746800000,
+      "day": "03",
+      "month": "NOV",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    },
+    {
+      "epochMs": 1794351600000,
+      "day": "10",
+      "month": "NOV",
+      "time": "6:00 PM",
+      "title": "Carnegie Industrials Club GBM",
+      "desc": "",
+      "location": "Tepper 3808"
+    }
+  ]
+}

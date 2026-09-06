@@ -1,30 +1,25 @@
 /* ============================================================
-   "What's Happening" — Google Calendar sync with sample fallback.
+   "What's Happening" — live from the club Google Calendar.
 
-   TO GO LIVE:
-   1. Make the club Google Calendar public
-      (Calendar settings -> Access permissions -> Make available to public).
-   2. Create a Google API key with the Calendar API enabled:
-      https://console.cloud.google.com/apis/credentials
-   3. IMPORTANT: restrict the key by HTTP referrer to this site's
-      domain (e.g. https://<org>.github.io/*) — this is a static site,
-      so the key ships in page source; referrer restriction is what
-      keeps it from being usable anywhere else.
-   4. Paste both values below. That's it — the section syncs itself
-      and the status pill flips to LIVE.
+   HOW IT WORKS (no API key involved):
+   - A GitHub Action (.github/workflows/refresh-calendar.yml) runs
+     scripts/fetch-calendar.mjs every few hours. It reads the club
+     calendar's public ICS feed and writes assets/data/events.json.
+   - This file fetches that JSON and renders the next 3 events.
+   - If the JSON is missing or unreadable, sample events show and
+     the pill says SAMPLE FEED. The section never renders empty.
+
+   To point at a different calendar, edit the ICS_URL constant in
+   scripts/fetch-calendar.mjs.
    ============================================================ */
 (function () {
   'use strict';
   var IC = window.IC = window.IC || {};
 
-  var CONFIG = {
-    CALENDAR_ID: '',   /* e.g. 'industrialclub@group.calendar.google.com' */
-    API_KEY: ''        /* e.g. 'AIza...' (referrer-restricted!) */
-  };
+  var SHOW_COUNT = 3;          /* events visible at a time */
+  var GRACE_MS = 2 * 3600000;  /* keep an event listed 2h past start */
 
-  var MONTHS = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-
-  /* Shown until the real calendar is wired up — edit freely. */
+  /* Fallback only — shown if the live feed can't be loaded. */
   function sampleEvents() {
     return [
       { day: '08', month: 'SEP', title: 'GBM #1: Welcome & Industrials 101',
@@ -58,54 +53,42 @@
       list.appendChild(row);
     });
 
+    if (live && !events.length) {
+      var empty = document.createElement('div');
+      empty.className = 'config-note';
+      empty.textContent = 'Nothing on the calendar right now. Check back soon.';
+      list.appendChild(empty);
+    }
+
     if (pill) {
       pill.textContent = live
         ? '● LIVE · SYNCED FROM GOOGLE CALENDAR'
-        : '● SAMPLE FEED · CONNECTS TO GOOGLE CALENDAR';
+        : '● SAMPLE FEED · CALENDAR SYNC UNAVAILABLE';
     }
     if (note) note.hidden = live;
     if (IC.interactions) IC.interactions.refreshGroup(list);
   }
 
-  function loadLive() {
-    var url = 'https://www.googleapis.com/calendar/v3/calendars/' +
-      encodeURIComponent(CONFIG.CALENDAR_ID) + '/events' +
-      '?key=' + encodeURIComponent(CONFIG.API_KEY) +
-      '&timeMin=' + new Date().toISOString() +
-      '&singleEvents=true&orderBy=startTime&maxResults=6';
-
-    window.fetch(url)
-      .then(function (r) {
-        if (!r.ok) throw new Error('calendar http ' + r.status);
-        return r.json();
-      })
-      .then(function (d) {
-        if (!d.items || !d.items.length) throw new Error('no events');
-        render(d.items.map(function (item) {
-          var start = item.start || {};
-          var s = new Date(start.dateTime || start.date);
-          return {
-            day: String(s.getDate()).padStart(2, '0'),
-            month: MONTHS[s.getMonth()],
-            title: item.summary || 'Untitled event',
-            desc: String(item.description || '').replace(/<[^>]*>/g, '').slice(0, 200),
-            time: start.dateTime
-              ? s.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
-              : 'ALL DAY',
-            location: item.location || 'CMU campus'
-          };
-        }), true);
-      })
-      .catch(function () {
-        /* Never render empty: any failure falls back to samples. */
-        render(sampleEvents(), false);
-      });
-  }
-
   IC.calendar = {
     init: function () {
-      if (CONFIG.CALENDAR_ID && CONFIG.API_KEY && window.fetch) loadLive();
-      else render(sampleEvents(), false);
+      if (!window.fetch) { render(sampleEvents(), false); return; }
+      window.fetch('assets/data/events.json', { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('events.json http ' + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          if (!data || !Array.isArray(data.events)) throw new Error('bad events.json');
+          var now = Date.now();
+          var upcoming = data.events
+            .filter(function (ev) { return ev.epochMs >= now - GRACE_MS; })
+            .slice(0, SHOW_COUNT);
+          render(upcoming, true);
+        })
+        .catch(function () {
+          /* Never render empty: any failure falls back to samples. */
+          render(sampleEvents(), false);
+        });
     }
   };
 })();

@@ -13,20 +13,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/tokens.css?v=9">
-  <link rel="stylesheet" href="css/base.css?v=9">
-  <link rel="stylesheet" href="css/layout.css?v=9">
-  <link rel="stylesheet" href="css/components.css?v=9">
-  <link rel="stylesheet" href="css/sections.css?v=9">
-  <link rel="stylesheet" href="css/motion.css?v=9">
+  <link rel="stylesheet" href="css/tokens.css?v=10">
+  <link rel="stylesheet" href="css/base.css?v=10">
+  <link rel="stylesheet" href="css/layout.css?v=10">
+  <link rel="stylesheet" href="css/components.css?v=10">
+  <link rel="stylesheet" href="css/sections.css?v=10">
+  <link rel="stylesheet" href="css/motion.css?v=10">
 
-  <script defer src="js/motion-gate.js?v=9"></script>
-  <script defer src="js/interactions.js?v=9"></script>
-  <script defer src="js/scrub.js?v=9"></script>
-  <script defer src="js/calendar.js?v=9"></script>
-  <script defer src="js/team.js?v=9"></script>
-  <script defer src="js/nav.js?v=9"></script>
-  <script defer src="js/main.js?v=9"></script>
+  <script defer src="js/motion-gate.js?v=10"></script>
+  <script defer src="js/interactions.js?v=10"></script>
+  <script defer src="js/scrub.js?v=10"></script>
+  <script defer src="js/calendar.js?v=10"></script>
+  <script defer src="js/team.js?v=10"></script>
+  <script defer src="js/nav.js?v=10"></script>
+  <script defer src="js/main.js?v=10"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -321,7 +321,7 @@
     <p class="calendar-intro">Today's meeting and upcoming events, synced straight from our club Google Calendar. Title, time, place, and description update automatically.</p>
     <div id="calendar-list" data-reveal-group></div>
     <!-- Hidden automatically once the calendar is wired up in js/calendar.js -->
-    <div class="config-note" id="calendar-note">Sample events shown. To go live: make the club Google Calendar public, then paste its Calendar ID and a Google API key into the config block at the top of <code>js/calendar.js</code>, and the list above will sync automatically.</div>
+    <div class="config-note" id="calendar-note">Sample events shown because the live calendar feed could not be loaded. The feed refreshes automatically from the club Google Calendar (see <code>scripts/fetch-calendar.mjs</code>).</div>
   </div>
 </section>
 

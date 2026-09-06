@@ -72,9 +72,14 @@ The github.io URL keeps working as a backup either way.
   and the reveal animation).
 - **Partner / sponsor content** — if the club lines up partners or sponsors,
   there's no dedicated section for them yet; add one if needed.
-- **Google Calendar** — paste `CALENDAR_ID` + `API_KEY` into the config block at
-  the top of `js/calendar.js` (instructions are in that file). Until then the
-  section shows sample events.
+- **Google Calendar** ✓ done — the What's Happening section syncs from the
+  club's public Google Calendar with no API key: a GitHub Action
+  (`.github/workflows/refresh-calendar.yml`) runs `scripts/fetch-calendar.mjs`
+  every 6 hours, which reads the calendar's public ICS feed and writes
+  `assets/data/events.json`; the page shows the next 3 events (titles,
+  descriptions, times, locations). Add or edit events in Google Calendar and
+  the site follows. To point at a different calendar, change `ICS_URL` in
+  `scripts/fetch-calendar.mjs`.
 - **Videos** — the three scroll-scrub clips are still placeholder footage (see
   below); swap them for real club/licensed footage before promoting the site
   widely.
