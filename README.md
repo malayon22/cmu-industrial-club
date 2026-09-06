@@ -55,19 +55,29 @@ The github.io URL keeps working as a backup either way.
 
 ## Things the club still needs to fill in
 
-Search the code for **`CLUB TODO`** — every placeholder is marked:
-
+- **Team members** ✓ done — the real e-board (names, roles, bios, photos) lives
+  at the top of `js/team.js`. To update a bio, change a role, or swap a photo
+  for someone new, edit that file directly; drop a headshot in
+  `assets/images/team/` and point the member's `photo` field at it. The
+  slideshow updates itself.
+- **Meeting room + time** ✓ done — Tuesdays 6–7 PM in Tepper 3808, reflected in
+  the Meetings section cards and intro copy.
+- **Links** ✓ done — TartanConnect (nav, join CTA, footer) and Instagram
+  (footer) point to the club's real pages. There's no club LinkedIn yet, so
+  that footer link was removed rather than left dead; add it back in
+  `index.html` if the club creates one.
 - **Photos** — each gray "coming soon" frame is a `.photo-slot`. Replace the
   inner `.photo-ph` div with `<img src="assets/images/your-photo.jpg" alt="...">`
   (keep the `photo-slot` wrapper — it handles sizing and the reveal animation).
-- **Team members** — names, roles, bios, and photo paths live at the top of
-  `js/team.js`. Drop headshots in `assets/images/team/` and point each member's
-  `photo` field at them; the slideshow updates itself.
-- **Meeting room + time** — cards in the Meetings section.
-- **Links** — TartanConnect join URL, Instagram / LinkedIn / Slack in the footer.
+  Search the code for **`CLUB TODO`** to find the remaining photo slots.
+- **Partner / sponsor content** — if the club lines up partners or sponsors,
+  there's no dedicated section for them yet; add one if needed.
 - **Google Calendar** — paste `CALENDAR_ID` + `API_KEY` into the config block at
   the top of `js/calendar.js` (instructions are in that file). Until then the
   section shows sample events.
+- **Videos** — the three scroll-scrub clips are still placeholder footage (see
+  below); swap them for real club/licensed footage before promoting the site
+  widely.
 
 ## Videos
 

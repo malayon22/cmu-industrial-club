@@ -27,12 +27,12 @@
   /* Shown until the real calendar is wired up — edit freely. */
   function sampleEvents() {
     return [
-      { day: '02', month: 'SEP', title: 'GBM #1 — Welcome & Industrials 101',
-        desc: 'Kickoff meeting: what the club does this semester, intro to the industrial sector, and how to get involved. Free food.',
-        time: '7:00 PM', location: 'CMU · Room TBD' },
-      { day: '09', month: 'SEP', title: 'Sector Deep Dive: Freight & Rail',
-        desc: 'How goods actually move — rail economics, trucking cycles, and what current freight data says about the economy.',
-        time: '7:00 PM', location: 'CMU · Room TBD' },
+      { day: '08', month: 'SEP', title: 'GBM #1 — Welcome & Industrials 101',
+        desc: 'Kickoff meeting: what Carnegie Industrials does this semester, an intro to manufacturing and supply chains, and how to get involved. Free food.',
+        time: '6:00 PM', location: 'Tepper 3808' },
+      { day: '15', month: 'SEP', title: 'GBM #2 — Sector Deep Dive: Freight & Rail',
+        desc: 'How goods actually move — rail economics, trucking cycles, and what current freight and logistics data says about the broader economy.',
+        time: '6:00 PM', location: 'Tepper 3808' },
       { day: '20', month: 'SEP', title: 'Site Visit: Pittsburgh Plant Tour',
         desc: 'On the floor at a local manufacturing facility. Limited spots — sign up through the mailing list.',
         time: '10:00 AM', location: 'Off campus · Bus provided' }

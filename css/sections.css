@@ -306,6 +306,43 @@
   text-wrap: pretty;
 }
 
+/* ---------- Mission pillars (NETWORK / LEARN / EXPLORE CAREERS) ---------- */
+.mission-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 70px;
+  text-align: center;
+}
+.mission-pillar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.mission-pillar-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--red);
+  display: grid;
+  place-items: center;
+}
+.mission-pillar-icon svg { width: 30px; height: 30px; display: block; }
+.mission-pillar-label {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+}
+
+@media (max-width: 900px) {
+  .mission-pillars { gap: 30px; margin-top: 54px; }
+}
+@media (max-width: 640px) {
+  .mission-pillars { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+}
+
 /* ---------- Calendar ---------- */
 .section--calendar { background: var(--bone); }
 .calendar-header {

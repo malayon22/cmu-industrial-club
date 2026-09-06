@@ -1,29 +1,23 @@
 /* ============================================================
    OUR TEAM — click-through slideshow.
 
-   CLUB TODO: replace the sample members below with the real board.
-   - name / role / bio: plain text
-   - photo: drop a file in assets/images/team/ and put its path here
-     (e.g. 'assets/images/team/jane.jpg'); leave '' for the
-     "coming soon" placeholder frame.
+   Member list below is the real e-board. To update a bio, swap a
+   photo, or add someone: edit the fields directly — drop a file
+   in assets/images/team/ and point `photo` at it (e.g.
+   'assets/images/team/jane.jpg'); leave '' for the "coming soon"
+   placeholder frame.
    ============================================================ */
 (function () {
   'use strict';
   var IC = window.IC = window.IC || {};
 
   var MEMBERS = [
-    { name: 'YOUR NAME HERE', role: 'PRESIDENT',
-      bio: 'Runs the club, sets the semester agenda, and makes sure every meeting ships something worth showing up for.', photo: '' },
-    { name: 'YOUR NAME HERE', role: 'VICE PRESIDENT',
-      bio: 'Keeps the machine turning — logistics, rooms, and everything between the big ideas and the actual Tuesday meeting.', photo: '' },
-    { name: 'YOUR NAME HERE', role: 'HEAD OF EVENTS',
-      bio: 'Site visits, speaker nights, and socials. If you toured a plant this semester, thank this person.', photo: '' },
-    { name: 'YOUR NAME HERE', role: 'HEAD OF RESEARCH',
-      bio: 'Leads the sector deep dives and the modeling case studies — freight cycles, defense budgets, capex math.', photo: '' },
-    { name: 'YOUR NAME HERE', role: 'TREASURER',
-      bio: 'Guards the budget like a capex committee. Approves the free food.', photo: '' },
-    { name: 'YOUR NAME HERE', role: 'MARKETING CHAIR',
-      bio: 'The posters, the posts, and the reason you heard about us in the first place.', photo: '' }
+    { name: 'SEBASTIAN REICHELT', role: 'PRESIDENT',
+      bio: 'Co-founder of Schenley & Co. and a Tepper class of 2029 student who reached the finals of the UCC case competition before his sophomore fall even started. Runs Industrial Club the way he runs a venture — set the agenda, get people in the room, ship something real every Tuesday.', photo: 'assets/images/team/sebastian.jpg' },
+    { name: 'BEHRAM DARUWALLA', role: 'VICE PRESIDENT',
+      bio: 'Owns and runs Zenith Pioneers LLC, a billboard advertising business — pricing contracts, chasing clients, learning finance from the outside in. A Bank of America Student Leader who has also led program operations for a 4,000-member youth organization and interned across public policy and partnerships at United Way. Handles the logistics side of the club: rooms, schedules, and the gap between a good idea and a Tuesday meeting that actually happens.', photo: 'assets/images/team/behram.jpg' },
+    { name: 'MICHAEL ALAYON', role: 'PRESIDENT OF FINANCE',
+      bio: "Serves as Assistant Director of Finance at Carnegie Mellon while also working as a Project Assistant for Fraternity and Sorority Life — finance and operations, back to back. Volunteers with HOBY PA East and Ylead outside of Tepper. Runs the club's numbers: the budget, the modeling case studies, and the financial-analysis side of every sector deep dive.", photo: 'assets/images/team/michael.jpg' }
   ];
 
   var index = 0;
